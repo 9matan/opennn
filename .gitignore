@@ -229,10 +229,18 @@ Makefile*
 ![Ee]xamples/rosenbrock
 
 #CMake
-CMakeFiles/*
-examples/*/CMakeFiles/*
-examples/*/*.dir/*
+**/CMakeCache.txt
+**/CMakeFiles/*
 *.cmake
-*.vcxproj.user
 
 # Created by .ignore support plugin (hsz.mobi)
+
+#Visual studio
+**/*.sln
+**/*.vcxproj
+**/*.vcxproj.user
+**/*.dir/*
+/.vs
+
+#bin
+**/x64/*
