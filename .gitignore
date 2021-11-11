@@ -89,6 +89,7 @@ Makefile.in
 
 # Debug files
 *.dSYM/
+*.pdb
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
 
@@ -244,3 +245,10 @@ Makefile*
 
 #bin
 **/x64/*
+**/[Dd]ebug/*
+**/[Rr]elease/*
+
+#temp
+*.tmp.*
+**/[Tt]mp/*
+**/[Tt]emp/*
