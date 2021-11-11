@@ -23,6 +23,14 @@
 using namespace std;
 using namespace OpenNN;
 
+namespace
+{
+    const int DISPLAY_EPOCHS_PERIOD = 10;
+    const int EPOCHS_NUMBER = 1000;
+    const int BATCH_SAMPLE_NUMBER = 128;
+    const type INIT_LEARNING_RATE = 0.03;
+}
+
 int main()
 {
     try
@@ -34,14 +42,13 @@ int main()
         // Data set
 
         DataSet data_set("../data/mnist_train.csv", ',', true);
-
         data_set.set_input();
-
         data_set.set_column_use(0, DataSet::VariableUse::Target);
 
         const Index input_variables_number = data_set.get_input_variables_number();
         const Index target_variables_number = data_set.get_target_variables_number();
-
+        const Tensor<string, 1> inputs_names = data_set.get_input_variables_names();
+        const Tensor<string, 1> targets_names = data_set.get_target_variables_names();
         const Tensor<DataSet::Column, 1> columns = data_set.get_columns();
 
         for(Index i = 0; i < columns.size(); i++)
@@ -54,7 +61,6 @@ int main()
             else if(columns(i).column_use == OpenNN::DataSet::VariableUse::UnusedVariable) cout << "   Use: unused" << endl;
 
             if(columns(i).type == OpenNN::DataSet::ColumnType::Categorical) cout << "   Categories: " << columns(i).categories << endl;
-
             cout << endl;
         }
 
@@ -64,6 +70,12 @@ int main()
         // Neural network
 
         NeuralNetwork neural_network(NeuralNetwork::ProjectType::Classification, {input_variables_number, 50, target_variables_number});
+        neural_network.set_parameters_random();
+        neural_network.set_inputs_names(inputs_names);
+        neural_network.set_outputs_names(targets_names);
+
+        ScalingLayer* scaling_layer_pointer = neural_network.get_scaling_layer_pointer();
+        scaling_layer_pointer->set_scalers(Scaler::NoScaling);
 
         PerceptronLayer* perceptron_layer_pointer = neural_network.get_first_perceptron_layer_pointer();
 //        perceptron_layer_pointer->set_activation_function("RectifiedLinear");
@@ -82,14 +94,14 @@ int main()
         // Training strategy
 
         TrainingStrategy training_strategy(&neural_network, &data_set);
-
         training_strategy.set_loss_method(TrainingStrategy::LossMethod::CROSS_ENTROPY_ERROR);
-
         training_strategy.set_optimization_method(TrainingStrategy::OptimizationMethod::ADAPTIVE_MOMENT_ESTIMATION);
+        training_strategy.set_display_period(DISPLAY_EPOCHS_PERIOD);
+        training_strategy.set_maximum_epochs_number(EPOCHS_NUMBER);
 
-        training_strategy.set_display_period(10);
-
-        training_strategy.set_maximum_epochs_number(1000);
+        StochasticGradientDescent* stochastic_gradient_descent_pointer = training_strategy.get_stochastic_gradient_descent_pointer();
+        stochastic_gradient_descent_pointer->set_batch_samples_number(BATCH_SAMPLE_NUMBER);
+        stochastic_gradient_descent_pointer->set_initial_learning_rate(INIT_LEARNING_RATE);
 
         training_strategy.perform_training();
 
@@ -105,6 +117,8 @@ int main()
 
         cout << "Accuracy: " << multiple_classification_tests(0)*type(100) << "%" << endl;
         cout << "Error: " << multiple_classification_tests(1)*type(100) << "%" << endl;
+
+        neural_network.save("../data/neural_network.tmp.xml");
 
         return 0;
     }
