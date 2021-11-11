@@ -73,7 +73,7 @@ Tensor<string, 1> get_tokens(const string& str, const char& separator)
     // Find first "non-delimiter"
 
     Index index = 0;
-    Index old_pos;
+    Index old_pos = string::npos;
 
     string::size_type pos = str.find_first_of(separator, lastPos);
 
