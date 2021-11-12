@@ -30,115 +30,57 @@ int main()
     {
         cout << "OpenNN. Blank application." << endl;
 
-        Index rows_number = 3;
-        Index columns_number = 4;
+        Index samples_number = 2;
+        Index input_variables_number = 1;
+        Index target_variables_number = 1;
 
-        Tensor<type,2> diagonal_matrix(columns_number,columns_number);
-        Tensor<type,1> row;
+        // DataSet
 
-        Tensor<type,2> activations(rows_number,columns_number);
-        activations.setValues({{1,1,1,1},{2,2,2,2},{3,3,3,3}});
+        Tensor<type,2> data(samples_number,input_variables_number + target_variables_number);
+        data.setRandom();
 
-        Tensor<type,3> activations_derivatives(columns_number,rows_number,columns_number);
+        DataSet data_set;
+        data_set.set(data);
+        data_set.print_data();
 
-        diagonal_matrix.setZero();
-        sum_diagonal(diagonal_matrix,type(1));
+        // Neural Network
 
-        Tensor<type,2> temp_matrix(rows_number,columns_number);
+        Index hidden_neurons_number = 1;
 
-        cout << "activations:\n" << activations << endl;
-        for(Index row_index = 0; row_index < rows_number; row_index++)
-        {
-            row = activations.chip(row_index,0);
-            cout << "row:\n" << row << endl;
+        NeuralNetwork neural_network(NeuralNetwork::ProjectType::Classification, {input_variables_number, hidden_neurons_number, target_variables_number});
 
-            temp_matrix =
-                     row.reshape(Eigen::array<Index,2>({columns_number,1})).broadcast(Eigen::array<Index,2>({1,columns_number}))
-                     *(diagonal_matrix - row.reshape(Eigen::array<Index,2>({1,columns_number})).broadcast(Eigen::array<Index,2>({columns_number,1})));
+        // Training Strategy
 
-            cout << "temp_matrix:\n" << temp_matrix << endl;
+        TrainingStrategy training_strategy(&neural_network, &data_set);
 
-            memcpy(activations_derivatives.data()+temp_matrix.size()*row_index, temp_matrix.data(), static_cast<size_t>(temp_matrix.size())*sizeof(type));
-        }
+        training_strategy.set_loss_method(TrainingStrategy::LossMethod::CROSS_ENTROPY_ERROR);
+        training_strategy.set_maximum_epochs_number(100);
 
-        cout << "activations_derivatives:\n" << activations_derivatives << endl;
+        training_strategy.perform_training();
 
         system("pause");
 
         // -----------------------
 
-        DataSet data_set("C:/Program Files/Neural Designer/examples/activityrecognition/activityrecognition.csv",';',true);
+        data_set.set("C:/Program Files/Neural Designer/examples/activityrecognition/activityrecognition.csv",';',true);
 
-        const Index input_variables_number = data_set.get_input_variables_number();
-        const Index target_variables_number = data_set.get_target_variables_number();
+        input_variables_number = data_set.get_input_variables_number();
+        target_variables_number = data_set.get_target_variables_number();
 
         // Neural network
 
-        const Index hidden_neurons_number = 10;
+        hidden_neurons_number = 10;
 
-        NeuralNetwork neural_network(NeuralNetwork::ProjectType::Classification, {input_variables_number, hidden_neurons_number, target_variables_number});
+        neural_network.set(NeuralNetwork::ProjectType::Classification, {input_variables_number, hidden_neurons_number, target_variables_number});
 
         // Training strategy
 
-        TrainingStrategy training_strategy(&neural_network, &data_set);
+        training_strategy.set(&neural_network, &data_set);
 
         training_strategy.set_loss_method(TrainingStrategy::LossMethod::CROSS_ENTROPY_ERROR);
         training_strategy.set_maximum_epochs_number(200);
 
         training_strategy.perform_training();
-
-        /*
-        srand(static_cast<unsigned>(time(nullptr)));
-
-        DataSet ds("C:/Users/Usuario/Documents/Waste_monthly.csv", ',', true);
-
-        ds.set_lags_number(2);
-        ds.set_steps_ahead_number(1);
-
-        ds.transform_time_series();
-
-        ds.split_samples_sequential();
-
-        const Index columns_number = ds.get_columns_number();
-
-        ds.set_column_use(columns_number-1, DataSet::VariableUse::UnusedVariable);
-        ds.set_column_use(columns_number-2, DataSet::VariableUse::UnusedVariable);
-        ds.set_column_use(columns_number-3, DataSet::VariableUse::UnusedVariable);
-
-        const Index inputs_number = ds.get_input_variables_number();
-        const Index targets_number = ds.get_target_variables_number();
-
-        const Index neurons_number = 3;
-
-        ScalingLayer sl(inputs_number);
-
-        LongShortTermMemoryLayer lstm(inputs_number, neurons_number);
-        lstm.set_activation_function(LongShortTermMemoryLayer::ActivationFunction::Linear);
-        lstm.set_recurrent_activation_function(LongShortTermMemoryLayer::ActivationFunction::HyperbolicTangent);
-        lstm.set_timesteps(2);
-
-        PerceptronLayer pl(neurons_number, targets_number);
-        pl.set_activation_function(PerceptronLayer::ActivationFunction::Linear);
-
-        UnscalingLayer ul(inputs_number);
-
-        NeuralNetwork nn;
-
-        nn.add_layer(&sl);
-        nn.add_layer(&lstm);
-        nn.add_layer(&pl);
-        nn.add_layer(&ul);
-
-        TrainingStrategy ts(&nn, &ds);
-
-        ts.set_optimization_method(TrainingStrategy::OptimizationMethod::ADAPTIVE_MOMENT_ESTIMATION);
-        ts.set_loss_method(TrainingStrategy::LossMethod::MEAN_SQUARED_ERROR);
-
-        ts.perform_training();
-
-        cout << "outputs: " << endl << nn.calculate_outputs(ds.get_input_data()) << endl;
-
-        */
 
         cout << "Good bye!" << endl;
 
