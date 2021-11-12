@@ -1,0 +1,1 @@
+ctest -C Release --tests-regex opennn_all_tests --output-on-failure

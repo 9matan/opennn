@@ -18,63 +18,69 @@
 
 using namespace OpenNN;
 
-int main()
+int main(int argc, char* argv[])
 {
-   cout <<
-   "Open Neural Networks Library. Test Suite Application.\n\n"
-   
-   "suite - run all tests\n\n"
-   
-   "Individual Tests:\n\n"
-   
-   "bounding_layer | bl\n"
-   "conjugate_gradient | cg\n"
-   "convolutional_layer | cl\n"
-   "correlations | cr\n"
-   "cross_entropy_error | cee\n"
-   "descriptives | dsc\n"
-   "data_set | ds\n"
-   "evolutionary_algorithm\n"
-   "genetic_algorithm | ga\n"
-   "golden_section_order\n"
-   "gradient_descent | gd\n"
-   "growing_inputs | gi\n"
-   "growing_neurons | gn\n"
-   "inputs_selection | is\n"
-   "learning_rate_algorithm | lra\n"
-   "levenberg_marquardt_algorithm | lma\n"
-   "long_short_term_memory_layer | lstm\n"
-   "mean_squared_error | mse\n"
-   "minkowski_error | me\n"
-   "model_selection | ms\n"
-   "neural_network | nn\n"
-   "neurons_selection | ns\n"
-   "normalized_squared_error | nse\n"
-   "numerical_differentiation | nd\n"
-   "perceptron_layer | pl\n"
-   "pooling_layer | pll\n"
-   "probabilistic_layer | pbl\n"
-   "pruning_inputs | pi\n"
-   "quasi_newton_method | qnm\n"
-   "recurrent_layer | rl\n"
-   "scaling_layer | sl\n"
-   "simulated_annealing_order\n"
-   "scaling | sc\n"
-   "statistics | st\n"
-   "stochastic_gradient_descent | sgd\n"
-   "sum_squared_error | sse\n"
-   "tensor_utilities | tu\n"
-   "testing_analysis | ta\n"
-   "training_strategy | ts\n"
-   "unscaling_layer | ul\n"
-   "weighted_squared_error | wse\n"
-   "\n" << endl;
+   string test = "";
+   if (argc >= 2)
+   {
+      test = argv[1];
+   }
+   else
+   {
+      cout <<
+      "Open Neural Networks Library. Test Suite Application.\n\n"
 
-   string test;
+      "suite - run all tests\n\n"
 
-   cout << "Test: ";
+      "Individual Tests:\n\n"
 
-   cin >> test;
+      "bounding_layer | bl\n"
+      "conjugate_gradient | cg\n"
+      "convolutional_layer | cl\n"
+      "correlations | cr\n"
+      "cross_entropy_error | cee\n"
+      "descriptives | dsc\n"
+      "data_set | ds\n"
+      "evolutionary_algorithm\n"
+      "genetic_algorithm | ga\n"
+      "golden_section_order\n"
+      "gradient_descent | gd\n"
+      "growing_inputs | gi\n"
+      "growing_neurons | gn\n"
+      "inputs_selection | is\n"
+      "learning_rate_algorithm | lra\n"
+      "levenberg_marquardt_algorithm | lma\n"
+      "long_short_term_memory_layer | lstm\n"
+      "mean_squared_error | mse\n"
+      "minkowski_error | me\n"
+      "model_selection | ms\n"
+      "neural_network | nn\n"
+      "neurons_selection | ns\n"
+      "normalized_squared_error | nse\n"
+      "numerical_differentiation | nd\n"
+      "perceptron_layer | pl\n"
+      "pooling_layer | pll\n"
+      "probabilistic_layer | pbl\n"
+      "pruning_inputs | pi\n"
+      "quasi_newton_method | qnm\n"
+      "recurrent_layer | rl\n"
+      "scaling_layer | sl\n"
+      "simulated_annealing_order\n"
+      "scaling | sc\n"
+      "statistics | st\n"
+      "stochastic_gradient_descent | sgd\n"
+      "sum_squared_error | sse\n"
+      "tensor_utilities | tu\n"
+      "testing_analysis | ta\n"
+      "training_strategy | ts\n"
+      "unscaling_layer | ul\n"
+      "weighted_squared_error | wse\n"
+      "\n" << endl;
+
+      cout << "Test: ";
+
+      cin >> test;
+   }
 
    // Redirect standard output to file
 
@@ -701,6 +707,7 @@ int main()
       else
       {
          cout << "Test NOT OK. " << tests_failed_count << " tests failed" << endl;
+         return 1;
       }
 
       return 0;

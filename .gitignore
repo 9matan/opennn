@@ -252,3 +252,4 @@ Makefile*
 *.tmp.*
 **/[Tt]mp/*
 **/[Tt]emp/*
+**/[Tt]emporary/*

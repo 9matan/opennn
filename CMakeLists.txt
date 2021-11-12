@@ -37,6 +37,7 @@ if(OpenNN_BUILD_BLANK)
 endif(OpenNN_BUILD_BLANK)
 
 if(OpenNN_BUILD_TESTS)
+    enable_testing()
     add_subdirectory(tests)
 endif(OpenNN_BUILD_TESTS)
 
