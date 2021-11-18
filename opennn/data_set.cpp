@@ -3480,36 +3480,6 @@ void DataSet::set_columns_scalers(const Scaler& scalers)
     }
 }
 
-
-Tensor<type, 2> DataSet::transform_binary_column(const Tensor<type, 1>& column) const
-
-{
-    const Index rows_number = column.dimension(0);
-
-    Tensor<type, 2> new_column(rows_number , 2);
-    new_column.setZero();
-
-    for(Index i = 0; i < rows_number; i++)
-    {
-        if(abs(column(i) - static_cast<type>(1)) < type(NUMERIC_LIMITS_MIN))
-        {
-            new_column(i,1) = static_cast<type>(1);
-        }
-        else if(abs(column(i)) < type(NUMERIC_LIMITS_MIN))
-        {
-            new_column(i,0) = static_cast<type>(1);
-        }
-        else
-        {
-            new_column(i,0) = type(NAN);
-            new_column(i,1) = type(NAN);
-        }
-    }
-
-    return new_column;
-}
-
-
 void DataSet::set_binary_simple_columns()
 {
     bool is_binary = true;
@@ -3593,6 +3563,87 @@ void DataSet::set_binary_simple_columns()
     }
 }
 
+void DataSet::check_constant_columns()
+{
+    if(display) cout << "Checking constant columns..." << endl;
+
+    Index variable_index = 0;
+
+    for(Index column = 0; column < get_columns_number(); column++)
+    {
+        if(columns(column).type == ColumnType::Numeric)
+        {
+            // @todo avoid chip
+
+            const Tensor<type, 1> numeric_column = data.chip(variable_index, 1);
+
+            if(standard_deviation(numeric_column) < static_cast<type>(1.0e-3))
+            {
+                columns(column).type = ColumnType::Constant;
+                columns(column).column_use = VariableUse::UnusedVariable;
+            }
+
+            variable_index++;
+        }
+        else if(columns(column).type == ColumnType::DateTime)
+        {
+            columns(column).column_use = VariableUse::UnusedVariable;
+            variable_index++;
+        }
+        else if(columns(column).type == ColumnType::Constant)
+        {
+            variable_index++;
+        }
+        else if(columns(column).type == ColumnType::Binary)
+        {
+            if(columns(column).get_categories_number() == 1)
+            {
+                columns(column).type = ColumnType::Constant;
+                columns(column).column_use = VariableUse::UnusedVariable;
+            }
+
+            variable_index++;
+        }
+        else if(columns(column).type == ColumnType::Categorical)
+        {
+            if(columns(column).get_categories_number() == 1)
+            {
+                columns(column).type = ColumnType::Constant;
+                columns(column).column_use = VariableUse::UnusedVariable;
+            }
+
+            variable_index += columns(column).get_categories_number();
+        }
+    }
+}
+
+Tensor<type, 2> DataSet::transform_binary_column(const Tensor<type, 1>& column) const
+
+{
+    const Index rows_number = column.dimension(0);
+
+    Tensor<type, 2> new_column(rows_number , 2);
+    new_column.setZero();
+
+    for(Index i = 0; i < rows_number; i++)
+    {
+        if(abs(column(i) - static_cast<type>(1)) < type(NUMERIC_LIMITS_MIN))
+        {
+            new_column(i,1) = static_cast<type>(1);
+        }
+        else if(abs(column(i)) < type(NUMERIC_LIMITS_MIN))
+        {
+            new_column(i,0) = static_cast<type>(1);
+        }
+        else
+        {
+            new_column(i,0) = type(NAN);
+            new_column(i,1) = type(NAN);
+        }
+    }
+
+    return new_column;
+}
 
 /// Sets new input dimensions in the data set.
 
@@ -5142,7 +5193,7 @@ Tensor<string, 1> DataSet::unuse_uncorrelated_columns(const type& minimum_correl
 
 
 /// Returns the distribution of each of the columns. In the case of numeric columns, it returns a
-/// histogram, for the case of categorical columns, it returns the frequencies of each category nad for the
+/// histogram, for the case of categorical columns, it returns the frequencies of each category and for the
 /// binary columns it returns the frequencies of the positives and negatives.
 /// The default number of bins is 10.
 /// @param bins_number Number of bins.
@@ -6251,7 +6302,7 @@ Tensor<Descriptives, 1> DataSet::scale_target_variables()
     const Tensor<Index, 1> target_variables_indices = get_target_variables_indices();
     const Tensor<Scaler, 1> target_variables_scalers = get_target_variables_scalers();
 
-    const Tensor<Descriptives, 1> target_variables_descriptives = calculate_target_variables_descriptives();
+    const Tensor<Descriptives, 1> target_variables_descriptives = calculate_variables_descriptives();
 
     for(Index i = 0; i < target_variables_number; i++)
     {
@@ -10193,56 +10244,7 @@ void DataSet::read_csv_3_simple()
 
     // Check Constant
 
-    if(display) cout << "Checking constant columns..." << endl;
-
-    Index variable_index = 0;
-
-    for(Index column = 0; column < get_columns_number(); column++)
-    {
-        if(columns(column).type == ColumnType::Numeric)
-        {
-            // @todo avoid chip
-
-            const Tensor<type, 1> numeric_column = data.chip(variable_index, 1);
-
-            if(standard_deviation(numeric_column) < static_cast<type>(1.0e-3))
-            {
-                columns(column).type = ColumnType::Constant;
-                columns(column).column_use = VariableUse::UnusedVariable;
-            }
-
-            variable_index++;
-        }
-        else if(columns(column).type == ColumnType::DateTime)
-        {
-            columns(column).column_use = VariableUse::UnusedVariable;
-            variable_index++;
-        }
-        else if(columns(column).type == ColumnType::Constant)
-        {
-            variable_index++;
-        }
-        else if(columns(column).type == ColumnType::Binary)
-        {
-            if(columns(column).get_categories_number() == 1)
-            {
-                columns(column).type = ColumnType::Constant;
-                columns(column).column_use = VariableUse::UnusedVariable;
-            }
-
-            variable_index++;
-        }
-        else if(columns(column).type == ColumnType::Categorical)
-        {
-            if(columns(column).get_categories_number() == 1)
-            {
-                columns(column).type = ColumnType::Constant;
-                columns(column).column_use = VariableUse::UnusedVariable;
-            }
-
-            variable_index += columns(column).get_categories_number();
-        }
-    }
+    check_constant_columns();
 
     // Check Binary
 
@@ -10557,66 +10559,16 @@ void DataSet::read_csv_3_complete()
 
     file.close();
 
+    // Check Constant and DateTime to unused
+
+    check_constant_columns();
+
     // Check binary
 
     if(display) cout << "Checking binary columns..." << endl;
 
     set_binary_simple_columns();
 
-    // Check Constant and DateTime to unused
-
-    if(display) cout << "Checking constant columns..." << endl;
-
-    variable_index = 0;
-
-    for(Index column = 0; column < get_columns_number(); column++)
-    {
-        if(columns(column).type == ColumnType::Numeric)
-        {
-            const Tensor<type, 1> numeric_column = data.chip(variable_index, 1);
-
-            if(standard_deviation(numeric_column) < static_cast<type>(1.0e-3))
-            {
-                columns(column).type = ColumnType::Constant;
-                columns(column).column_use = VariableUse::UnusedVariable;
-            }
-
-            variable_index++;
-        }
-        else if(columns(column).type == ColumnType::DateTime)
-        {
-            columns(column).column_use = VariableUse::UnusedVariable;
-            variable_index++;
-        }
-        else if(columns(column).type == ColumnType::Constant)
-        {
-            columns(column).column_use = VariableUse::UnusedVariable;
-
-            variable_index++;
-        }
-        else if(columns(column).type == ColumnType::Binary)
-        {
-            if(columns(column).get_categories_number() == 1)
-            {
-                columns(column).type = ColumnType::Constant;
-                columns(column).column_use = VariableUse::UnusedVariable;
-                columns(column).set_categories_uses(VariableUse::UnusedVariable);
-            }
-
-            variable_index++;
-        }
-        else if(columns(column).type == ColumnType::Categorical)
-        {
-            if(columns(column).get_categories_number() == 1)
-            {
-                columns(column).type = ColumnType::Constant;
-                columns(column).column_use = VariableUse::UnusedVariable;
-                columns(column).set_categories_uses(VariableUse::UnusedVariable);
-            }
-
-            variable_index += columns(column).get_categories_number();
-        }
-    }
 }
 
 
