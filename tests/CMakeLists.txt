@@ -57,6 +57,7 @@ set(continuous_tests
     "quasi_newton_method"
     # Executable crashes on reccurent layer tests
     #"recurrent_layer"
+    # Scaling layer tests passed 83/85
     #"scaling_layer"
     #"simulated_annealing_order"
     # "test_unscale_data_mean_standard_deviation" fails
