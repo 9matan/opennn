@@ -28,13 +28,13 @@
          <InputsNumber>2</InputsNumber>
          <NeuronsNumber>10</NeuronsNumber>
          <ActivationFunction>HyperbolicTangent</ActivationFunction>
-         <Parameters>-0.0661798 0.0678794 0.0642856 -0.0662812 -0.0661668 -0.0663031 -0.0666718 -0.0660547 0.0664549 -0.0669743 -0.368676 0.41878 0.367733 -0.418693 0.368797 -0.419111 -0.369284 0.418883 -0.368775 0.418877 -0.368421 0.418618 -0.368349 0.418688 -0.369025 0.419163 0.36839 -0.418703 -0.368882 0.419612</Parameters>
+         <Parameters>0.296804 0.3031 -0.277971 0.318156 0.289379 0.313975 0.315903 0.268993 -0.311001 0.28485 -0.954437 0.885734 -0.971211 0.901309 0.904248 -0.839228 -1.01146 0.938595 -0.934634 0.867385 -1.00031 0.92816 -1.00549 0.932938 -0.88033 0.817097 0.992423 -0.920825 -0.922566 0.856198</Parameters>
       </PerceptronLayer>
       <ProbabilisticLayer>
          <InputsNumber>10</InputsNumber>
          <NeuronsNumber>1</NeuronsNumber>
          <ActivationFunction>Logistic</ActivationFunction>
-         <Parameters>-0.196039 0.744644 -0.743827 -0.744454 0.746474 0.744849 0.743737 0.743872 0.74475 -0.744021 0.745248</Parameters>
+         <Parameters>0.11943 1.35157 1.37691 -1.27634 1.43747 1.32187 1.42081 1.42853 1.24052 -1.40855 1.30378</Parameters>
          <DecisionThreshold>0.5</DecisionThreshold>
       </ProbabilisticLayer>
    </Layers>

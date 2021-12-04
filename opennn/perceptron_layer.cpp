@@ -13,7 +13,7 @@ namespace OpenNN
 
 /// Default constructor.
 /// It creates a empty layer object, with no perceptrons.
-/// This constructor also initializes the rest of class members to their default values.
+/// This constructor also initializes the rest of the class members to their default values.
 
 PerceptronLayer::PerceptronLayer() : Layer()
 {
@@ -25,8 +25,8 @@ PerceptronLayer::PerceptronLayer() : Layer()
 
 /// Layer architecture constructor.
 /// It creates a layer object with given numbers of inputs and perceptrons.
-/// The parameters are initialized at random.
-/// This constructor also initializes the rest of class members to their default values.
+/// It initializes the parameters at random.
+/// This constructor also initializes the rest of the class members to their default values.
 /// @param new_inputs_number Number of inputs in the layer.
 /// @param new_neurons_number Number of perceptrons in the layer.
 
@@ -79,7 +79,7 @@ Index PerceptronLayer::get_synaptic_weights_number() const
 }
 
 
-/// Returns the number of parameters(biases and synaptic weights) of the layer.
+/// Returns the number of parameters (biases and synaptic weights) of the layer.
 
 Index PerceptronLayer::get_parameters_number() const
 {
@@ -175,7 +175,7 @@ const PerceptronLayer::ActivationFunction& PerceptronLayer::get_activation_funct
 
 
 /// Returns a string with the name of the layer activation function.
-/// This can be: Logistic, HyperbolicTangent, Threshold, SymmetricThreshold, Linear, RectifiedLinear, ScaledExponentialLinear.
+/// This can be Logistic, HyperbolicTangent, Threshold, SymmetricThreshold, Linear, RectifiedLinear, ScaledExponentialLinear.
 
 string PerceptronLayer::write_activation_function() const
 {
@@ -219,8 +219,8 @@ string PerceptronLayer::write_activation_function() const
 }
 
 
-/// Returns true if messages from this class are to be displayed on the screen,
-/// or false if messages from this class are not to be displayed on the screen.
+/// Returns true if messages from this class are displayed on the screen,
+/// or false if messages from this class are not displayed on the screen.
 
 const bool& PerceptronLayer::get_display() const
 {
@@ -229,7 +229,7 @@ const bool& PerceptronLayer::get_display() const
 
 
 /// Sets an empty layer, wihtout any perceptron.
-/// It also sets the rest of members to their default values.
+/// It also sets the rest of the members to their default values.
 
 void PerceptronLayer::set()
 {
@@ -242,7 +242,7 @@ void PerceptronLayer::set()
 
 
 /// Sets new numbers of inputs and perceptrons in the layer.
-/// It also sets the rest of members to their default values.
+/// It also sets the rest of the members to their default values.
 /// @param new_inputs_number Number of inputs.
 /// @param new_neurons_number Number of perceptron neurons.
 
@@ -285,7 +285,7 @@ void PerceptronLayer::set_name(const string& new_layer_name)
 
 
 /// Sets a new number of inputs in the layer.
-/// The new synaptic weights are initialized at random.
+/// It also initializes the new synaptic weights at random.
 /// @param new_inputs_number Number of layer inputs.
 
 void PerceptronLayer::set_inputs_number(const Index& new_inputs_number)
@@ -423,8 +423,8 @@ void PerceptronLayer::set_activation_function(const string& new_activation_funct
 
 
 /// Sets a new display value.
-/// If it is set to true messages from this class are to be displayed on the screen;
-/// if it is set to false messages from this class are not to be displayed on the screen.
+/// If it is set to true messages from this class are displayed on the screen;
+/// if it is set to false messages from this class are not displayed on the screen.
 /// @param new_display Display value.
 
 void PerceptronLayer::set_display(const bool& new_display)

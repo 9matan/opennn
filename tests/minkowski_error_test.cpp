@@ -42,6 +42,15 @@ void MinkowskiErrorTest::test_constructor()
 }
 
 
+void MinkowskiErrorTest::test_destructor()
+{
+    cout << "test_destructor\n";
+
+    MinkowskiError* minkowski_error = new MinkowskiError;
+
+    delete minkowski_error;
+}
+
 void MinkowskiErrorTest::test_back_propagate()
 {
     cout << "test_back_propagate\n";
@@ -258,12 +267,10 @@ void MinkowskiErrorTest::test_back_propagate()
         back_propagation.set(samples_number, &minkowski_error);
         minkowski_error.back_propagate(batch, forward_propagation, back_propagation);
 
-
         assert_true(back_propagation.errors.dimension(0) == samples_number, LOG);
         assert_true(back_propagation.errors.dimension(1) == outputs_number, LOG);
 
-        assert_true(back_propagation.error < type(NUMERIC_LIMITS_MIN), LOG);
-        assert_true(is_zero(back_propagation.gradient), LOG);
+        assert_true(is_zero(back_propagation.gradient,type(1e-1)), LOG);
     }
 
     // Test forecasting random samples, inputs, outputs, neurons
@@ -321,6 +328,7 @@ void MinkowskiErrorTest::run_test_case()
    // Constructor and destructor methods
 
    test_constructor();
+   test_destructor();
 
    // Back-propagation methods
 

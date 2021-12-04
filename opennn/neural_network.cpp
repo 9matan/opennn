@@ -13,8 +13,8 @@ namespace OpenNN
 
 /// Default constructor.
 /// It creates an empty neural network object.
-/// All pointers in the object are initialized to nullptr.
-/// The rest of members are initialized to their default values.
+/// It also initializes all pointers in the object to nullptr.
+/// Finally, it initializes the rest of the members to their default values.
 
 NeuralNetwork::NeuralNetwork()
 {
@@ -24,7 +24,7 @@ NeuralNetwork::NeuralNetwork()
 
 /// Type of model and architecture of the Neural Network constructor.
 /// It creates a neural network object with the given model type and architecture.
-/// The rest of members are initialized to their default values.
+/// It initializes the rest of the members to their default values.
 /// @param model_type Type of problem to be solved with the neural network
 /// (Approximation, Classification, Forecasting, ImageApproximation, ImageClassification).
 /// @param architecture Architecture of the neural network({inputs_number, hidden_neurons_number, outputs_number}).
@@ -59,7 +59,6 @@ NeuralNetwork::NeuralNetwork(const Tensor<Index, 1>& new_inputs_dimensions,
 
 /// File constructor.
 /// It creates a neural network object by loading its members from an XML-type file.
-/// Please be careful with the format of that file, which is specified in the OpenNN manual.
 /// @param file_name Name of neural network file.
 
 NeuralNetwork::NeuralNetwork(const string& file_name)
@@ -80,7 +79,7 @@ NeuralNetwork::NeuralNetwork(const tinyxml2::XMLDocument& document)
 
 /// Layers constructor.
 /// It creates a neural network object by
-/// It also sets the rest of members to their default values.
+/// It also sets the rest of the members to their default values.
 
 NeuralNetwork::NeuralNetwork(const Tensor<Layer*, 1>& new_layers_pointers)
 {
@@ -231,7 +230,7 @@ bool NeuralNetwork::has_scaling_layer() const
 }
 
 
-/// Returns true if the neural network object has a long short term memory layer object inside,
+/// Returns true if the neural network object has a long short-term memory layer object inside,
 /// and false otherwise.
 
 bool NeuralNetwork::has_long_short_term_memory_layer() const
@@ -468,7 +467,7 @@ Tensor<Index, 1> NeuralNetwork::get_trainable_layers_indices() const
 }
 
 
-/// Returns a pointer to the scaling layers object composing this neural network object.
+/// Returns a pointer to the scaling layer object composing this neural network object.
 
 ScalingLayer* NeuralNetwork::get_scaling_layer_pointer() const
 {
@@ -516,7 +515,7 @@ UnscalingLayer* NeuralNetwork::get_unscaling_layer_pointer() const
 }
 
 
-/// Returns a pointer to the bounding layers object composing this neural network object.
+/// Returns a pointer to the bounding layer object composing this neural network object.
 
 BoundingLayer* NeuralNetwork::get_bounding_layer_pointer() const
 {
@@ -563,7 +562,7 @@ ProbabilisticLayer* NeuralNetwork::get_probabilistic_layer_pointer() const
     throw logic_error(buffer.str());
 }
 
-/// Returns a pointer to the long short term memory layer of this neural network, if exits.
+/// Returns a pointer to the long short-term memory layer of this neural network, if it exits.
 
 LongShortTermMemoryLayer* NeuralNetwork::get_long_short_term_memory_layer_pointer() const
 {
@@ -581,13 +580,13 @@ LongShortTermMemoryLayer* NeuralNetwork::get_long_short_term_memory_layer_pointe
 
     buffer << "OpenNN Exception: NeuralNetwork class.\n"
            << "LongShortTermMemoryLayer* get_long_short_term_memory_layer_pointer() const method.\n"
-           << "No long-short term memory layer in neural network.\n";
+           << "No long-short-term memory layer in neural network.\n";
 
     throw logic_error(buffer.str());
 }
 
 
-/// Returns a pointer to the recurrent layer of this neural network, if exits.
+/// Returns a pointer to the recurrent layer of this neural network, if it exits.
 
 RecurrentLayer* NeuralNetwork::get_recurrent_layer_pointer() const
 {
@@ -611,8 +610,8 @@ RecurrentLayer* NeuralNetwork::get_recurrent_layer_pointer() const
 }
 
 
-/// Returns true if messages from this class are to be displayed on the screen, or false if messages
-/// from this class are not to be displayed on the screen.
+/// Returns true if messages from this class are displayed on the screen, or false if messages
+/// from this class are not displayed on the screen.
 
 const bool& NeuralNetwork::get_display() const
 {
@@ -621,7 +620,7 @@ const bool& NeuralNetwork::get_display() const
 
 
 /// This method deletes all the pointers in the neural network.
-/// It also sets the rest of members to their default values.
+/// It also sets the rest of the members to their default values.
 
 void NeuralNetwork::set()
 {
@@ -636,7 +635,7 @@ void NeuralNetwork::set()
 
 
 /// Sets a new neural network with a given neural network architecture.
-/// It also sets the rest of members to their default values.
+/// It also sets the rest of the members to their default values.
 /// @param architecture Architecture of the neural network.
 
 void NeuralNetwork::set(const NeuralNetwork::ProjectType& model_type, const Tensor<Index, 1>& architecture)
@@ -734,7 +733,7 @@ void NeuralNetwork::set(const NeuralNetwork::ProjectType& model_type, const init
 
 
 /// Sets a new neural network with a given convolutional neural network architecture (CNN).
-/// It also sets the rest of members to their default values.
+/// It also sets the rest of the members to their default values.
 /// @param input_variables_dimensions Define the dimensions of the input varibales.
 /// @param blocks_number Number of blocks.
 /// @param filters_dimensions Architecture of the neural network.
@@ -779,7 +778,7 @@ void NeuralNetwork::set(const Tensor<Index, 1>& input_variables_dimensions,
 }
 
 
-/// Sets the neural network members by loading them from a XML file.
+/// Sets the neural network members by loading them from an XML file.
 /// @param file_name Neural network XML file_name.
 
 void NeuralNetwork::set(const string& file_name)
@@ -981,39 +980,14 @@ Tensor<Index, 1> NeuralNetwork::get_trainable_layers_inputs_numbers() const
 }
 
 
-Tensor<Index, 1> NeuralNetwork::get_trainable_layers_synaptic_weight_numbers() const
-{
-    const Index trainable_layers_number = get_trainable_layers_number();
-
-    Tensor<Index, 1> layers_neurons_number(trainable_layers_number);
-
-    Index count = 0;
-
-    for(Index i = 0; i < layers_pointers.size(); i++)
-    {
-        if(layers_pointers(i)->get_type() != Layer::Type::Scaling
-                && layers_pointers(i)->get_type() != Layer::Type::Unscaling
-                && layers_pointers(i)->get_type() != Layer::Type::Bounding)
-        {
-            layers_neurons_number(count) = layers_pointers[i]->get_synaptic_weights_number();
-
-            count++;
-        }
-    }
-
-    return layers_neurons_number;
-}
-
-
 /// Returns a vector with the architecture of the neural network.
-/// The elements of this vector are as follows;
+/// The elements of this vector are as follows:
 /// <UL>
-/// <LI> Number of scaling neurons(if there is a scaling layer).</LI>
+/// <LI> Number of scaling neurons (if there is a scaling layer).</LI>
 /// <LI> Multilayer perceptron architecture(if there is a neural network).</LI>
-/// <LI> Number of conditions neurons(if there is a conditions layer).</LI>
-/// <LI> Number of unscaling neurons(if there is an unscaling layer).</LI>
-/// <LI> Number of probabilistic neurons(if there is a probabilistic layer).</LI>
-/// <LI> Number of bounding neurons(if there is a bounding layer).</LI>
+/// <LI> Number of unscaling neurons (if there is an unscaling layer).</LI>
+/// <LI> Number of probabilistic neurons (if there is a probabilistic layer).</LI>
+/// <LI> Number of bounding neurons (if there is a bounding layer).</LI>
 /// </UL>
 
 Tensor<Index, 1> NeuralNetwork::get_architecture() const
@@ -1039,7 +1013,7 @@ Tensor<Index, 1> NeuralNetwork::get_architecture() const
 
 
 /// Returns the number of parameters in the neural network
-/// The number of parameters is the sum of all the neural network parameters(biases and synaptic weights) and independent parameters.
+/// The number of parameters is the sum of all the neural network parameters (biases and synaptic weights).
 
 Index NeuralNetwork::get_parameters_number() const
 {
@@ -1057,7 +1031,7 @@ Index NeuralNetwork::get_parameters_number() const
 
 
 /// Returns the values of the parameters in the neural network as a single vector.
-/// This contains all the neural network parameters(biases and synaptic weights) and preprocessed independent parameters.
+/// This contains all the neural network parameters (biases and synaptic weights).
 
 Tensor<type, 1> NeuralNetwork::get_parameters() const
 {
@@ -1129,7 +1103,7 @@ Tensor<Tensor<type, 1>, 1> NeuralNetwork::get_trainable_layers_parameters(const 
 }
 
 
-/// Sets all the parameters(neural_network_pointer parameters and independent parameters) from a single vector.
+/// Sets all the parameters(biases and synaptic weights) from a single vector.
 /// @param new_parameters New set of parameter values.
 
 void NeuralNetwork::set_parameters(Tensor<type, 1>& new_parameters)
@@ -1171,8 +1145,8 @@ void NeuralNetwork::set_parameters(Tensor<type, 1>& new_parameters)
 
 
 /// Sets a new display value.
-/// If it is set to true messages from this class are to be displayed on the screen;
-/// if it is set to false messages from this class are not to be displayed on the screen.
+/// If it is set to true messages from this class are displayed on the screen;
+/// if it is set to false messages from this class are not displayed on the screen.
 /// @param new_display Display value.
 
 void NeuralNetwork::set_display(const bool& new_display)
@@ -1276,6 +1250,7 @@ Index NeuralNetwork::get_long_short_term_memory_layers_number() const
     return count;
 }
 
+
 Index NeuralNetwork::get_recurrent_layers_number() const
 {
     const Index layers_number = get_layers_number();
@@ -1293,7 +1268,8 @@ Index NeuralNetwork::get_recurrent_layers_number() const
     return count;
 }
 
-/// Initializes all the neural and the independent parameters with a given value.
+
+/// Initializes all the biases and synaptic weights with a given value.
 
 void NeuralNetwork::set_parameters_constant(const type& value)
 {
@@ -1368,7 +1344,7 @@ void NeuralNetwork::perturbate_parameters(const type& perturbation)
 
 /// Calculates the forward propagation in the neural network.
 /// @param batch DataSetBatch of data set that contains the inputs and targets to be trained.
-/// @param foward_propagation Is a NeuralNetwork class structure where save the neccesary paraneters of forward propagation.
+/// @param foward_propagation Is a NeuralNetwork class structure where save the necessary parameters of forward propagation.
 
 void NeuralNetwork::forward_propagate(const DataSetBatch& batch,
                                       NeuralNetworkForwardPropagation& forward_propagation) const
@@ -1436,7 +1412,7 @@ void NeuralNetwork::forward_propagate(const DataSetBatch& batch,
 /// Calculates the forward propagation in the neural network.
 /// @param batch DataSetBatch of data set that contains the inputs and targets to be trained.
 /// @param paramters Parameters of neural network.
-/// @param foward_propagation Is a NeuralNetwork class structure where save the neccesary paraneters of forward propagation.
+/// @param foward_propagation Is a NeuralNetwork class structure where save the necessary parameters of forward propagation.
 
 void NeuralNetwork::forward_propagate(const DataSetBatch& batch,
                                       Tensor<type, 1>& parameters,
@@ -1529,7 +1505,7 @@ void NeuralNetwork::forward_propagate(const DataSetBatch& batch,
 /// <li> Calculate scaled inputs.
 /// <li> Calculate forward propagation.
 /// <li> Calculate unscaled outputs.
-/// <li> Apply boundary condtions.
+/// <li> Apply boundary conditions.
 /// <li> Calculate bounded outputs.
 /// </ul>
 /// @param inputs Set of inputs to the neural network.
@@ -1600,18 +1576,18 @@ Tensor<type, 2> NeuralNetwork::calculate_outputs(const Tensor<type, 4>& inputs)
 
     if(layers_pointers(1)->get_type() == Layer::Type::Convolutional)
     {
-        outputs_4d = layers_pointers(0)->calculate_outputs_4D(inputs);
+        //outputs_4d = layers_pointers(0)->calculate_outputs(inputs);
     }
     else
     {
-        outputs = layers_pointers(0)->calculate_outputs_from4D(inputs);
+        //outputs = layers_pointers(0)->calculate_outputs_from4D(inputs);
     }
 
     for(Index i = 1; i < layers_number; i++)
     {
         if(layers_pointers(i + 1)->get_type() == Layer::Type::Convolutional)
         {
-            outputs_4d = layers_pointers(i)->calculate_outputs_4D(outputs_4d);
+            //outputs_4d = layers_pointers(i)->calculate_outputs_4D(outputs_4d);
         }
         else
         {
@@ -1621,7 +1597,7 @@ Tensor<type, 2> NeuralNetwork::calculate_outputs(const Tensor<type, 4>& inputs)
             }
             else
             {
-                outputs = layers_pointers(i)->calculate_outputs_from4D(outputs_4d);
+                //outputs = layers_pointers(i)->calculate_outputs_from4D(outputs_4d);
             }
         }
     }
@@ -1630,8 +1606,8 @@ Tensor<type, 2> NeuralNetwork::calculate_outputs(const Tensor<type, 4>& inputs)
 }
 
 
-/// Calculates the input data which is necessary to compute the output data from the neural network in some direction.
-/// @param direction Input index(must be between 0 and number of inputs - 1).
+/// Calculates the input data necessary to compute the output data from the neural network in some direction.
+/// @param direction Input index (must be between 0 and number of inputs - 1).
 /// @param point Input point through the directional input passes.
 /// @param minimum Minimum value of the input with the above index.
 /// @param maximum Maximum value of the input with the above index.
@@ -1666,7 +1642,7 @@ Tensor<type, 2> NeuralNetwork::calculate_directional_inputs(const Index& directi
 
 
 /// For each layer: inputs, neurons, activation function.
-/// @todo Complete for rest of layers.
+/// @todo Complete for the rest of the layers.
 
 Tensor<string, 2> NeuralNetwork::get_information() const
 {
@@ -1769,7 +1745,7 @@ Tensor<string, 2> NeuralNetwork::get_probabilistic_layer_information() const
 }
 
 
-/// Serializes the neural network object into a XML document of the TinyXML library without keep the DOM tree in memory.
+/// Serializes the neural network object into an XML document of the TinyXML library without keeping the DOM tree in memory.
 /// See the OpenNN manual for more information about the format of this document.
 
 void NeuralNetwork::write_XML(tinyxml2::XMLPrinter& file_stream) const
@@ -2365,7 +2341,7 @@ void NeuralNetwork::print() const
 }
 
 
-/// Saves to a XML file the members of a neural network object.
+/// Saves to an XML file the members of a neural network object.
 /// @param file_name Name of neural network XML file.
 
 void NeuralNetwork::save(const string& file_name) const
@@ -2381,7 +2357,7 @@ void NeuralNetwork::save(const string& file_name) const
 
 
 /// Saves to a data file the parameters of a neural network object.
-/// @param file_name Name of parameters data file.
+/// @param file_name Name of the parameters data file.
 
 void NeuralNetwork::save_parameters(const string& file_name) const
 {
@@ -2408,7 +2384,7 @@ void NeuralNetwork::save_parameters(const string& file_name) const
 }
 
 
-/// Loads from a XML file the members for this neural network object.
+/// Loads from an XML file the members for this neural network object.
 /// Please mind about the file format, which is specified in the User's Guide.
 /// @param file_name Name of neural network XML file.
 
@@ -2436,7 +2412,7 @@ void NeuralNetwork::load(const string& file_name)
 
 /// Loads the neural network parameters from a data file.
 /// The format of this file is just a sequence of numbers.
-/// @param file_name Name of parameters data file.
+/// @param file_name Name of the parameters data file.
 
 void NeuralNetwork::load_parameters_binary(const string& file_name)
 {
@@ -2499,7 +2475,7 @@ string NeuralNetwork::write_expression_c() const
     buffer <<"// \tvector<float> outputs = neural_network(sample);"<<endl;
     buffer <<"// "<<endl;
     buffer <<"// Notice that only one sample is allowed as input. DataSetBatch of inputs are not yet implement,\t"<<endl;
-    buffer <<"// however you can loop through neural network function in order to get multiple outputs.\t"<<endl;
+    buffer <<"// however you can loop through neural network function to get multiple outputs.\t"<<endl;
     buffer <<""<<endl;
 
     buffer << "#include <vector>\n" << endl;
@@ -2758,7 +2734,7 @@ string NeuralNetwork::write_expression_python() const
 
 
 /// Saves the mathematical expression represented by the neural network to a text file.
-/// @param file_name Name of expression text file.
+/// @param file_name Name of the expression text file.
 
 void NeuralNetwork::save_expression_c(const string& file_name)
 {
@@ -2782,7 +2758,7 @@ void NeuralNetwork::save_expression_c(const string& file_name)
 
 
 /// Saves the python function of the expression represented by the neural network to a text file.
-/// @param file_name Name of expression text file.
+/// @param file_name Name of the expression text file.
 
 void NeuralNetwork::save_expression_python(const string& file_name)
 {
@@ -2807,7 +2783,7 @@ void NeuralNetwork::save_expression_python(const string& file_name)
 
 /// Saves a csv file containing the outputs for a set of given inputs.
 /// @param inputs Inputs to calculate the outputs.
-/// @param file_name Name of data file
+/// @param file_name Name of the data file
 
 void NeuralNetwork::save_outputs(const Tensor<type, 2>& inputs, const string & file_name)
 {

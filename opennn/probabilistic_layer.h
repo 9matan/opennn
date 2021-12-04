@@ -63,7 +63,7 @@ public:
 
    // Enumerations
 
-   /// Enumeration of available methods for interpreting variables as probabilities.
+   /// Enumeration of the available methods for interpreting variables as probabilities.
 
    enum class ActivationFunction{Binary, Logistic, Competitive, Softmax};
 
@@ -208,7 +208,7 @@ protected:
 
    Tensor<type, 2> biases;
 
-   /// This matrix containing conection strengths from a layer's inputs to its neurons.
+   /// This matrix contains conection strengths from a layer's inputs to its neurons.
 
    Tensor<type, 2> synaptic_weights;
 

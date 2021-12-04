@@ -69,7 +69,7 @@ public:
 
     // Enumerations
 
-    /// Enumeration of available error terms in OpenNN.
+    /// Enumeration of the available error terms in OpenNN.
 
     enum class LossMethod
     {
@@ -207,7 +207,7 @@ private:
 
     MinkowskiError Minkowski_error;
 
-    /// Pointer to the cross entropy error object wich can be used as the error term.
+    /// Pointer to the cross-entropy error object wich can be used as the error term.
 
     CrossEntropyError cross_entropy_error;
 

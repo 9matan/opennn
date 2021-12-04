@@ -51,7 +51,6 @@ int main()
         TrainingStrategy training_strategy(&neural_network, &data_set);
 
         training_strategy.set_loss_method(TrainingStrategy::LossMethod::CROSS_ENTROPY_ERROR);
-
         training_strategy.perform_training();
 
         // Testing analysis
@@ -59,21 +58,20 @@ int main()
         const TestingAnalysis testing_analysis(&neural_network, &data_set);
 
         Tensor<type, 2> inputs(3, 4);
+        Tensor<type, 2> outputs;
 
         inputs.setValues({{type(5.1),type(3.5),type(1.4),type(0.2)},
                           {type(6.4),type(3.2),type(4.5),type(1.5)},
                           {type(6.3),type(2.7),type(4.9),type(1.8)}});
 
-        cout << "Inputs: " << endl;
-        cout << inputs << endl;
-
-        cout << "Outputs: " << endl;
-        cout << neural_network.calculate_outputs(inputs) << endl;
-
         const Tensor<Index, 2> confusion = testing_analysis.calculate_confusion();
+        outputs = neural_network.calculate_outputs(inputs);
 
-        cout << "Confusion: " << endl;
-        cout << confusion << endl;
+        cout << "\nInputs:\n" << inputs << endl;
+
+        cout << "\nOutputs:\n" << outputs << endl;
+
+        cout << "\nConfusion matrix:\n" << confusion << endl;
 
         // Save results
 

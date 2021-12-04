@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 2.8.12)
 
-project(urinary_inflammations_diagnosis)
+project(mnist)
 
 if(UNIX)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS}")
@@ -12,6 +12,6 @@ if(WIN32)
 	set(PROJECT_LINK_LIBS ../../opennn/Release/opennn)
 endif()
 
-add_executable(urinary_inflammations_diagnosis main.cpp)
+add_executable(outlier_detection main.cpp)
 
-target_link_libraries(urinary_inflammations_diagnosis PUBLIC opennn)
+target_link_libraries(outlier_detection PUBLIC opennn)

@@ -40,7 +40,7 @@ class ConvolutionalLayer : public Layer
 
 public:
 
-    /// Enumeration of available activation functions for the convolutional layer.
+    /// Enumeration of the available activation functions for the convolutional layer.
 
     enum class ActivationFunction{Threshold, SymmetricThreshold, Logistic, HyperbolicTangent, Linear, RectifiedLinear, ExponentialLinear, ScaledExponentialLinear, SoftPlus, SoftSign, HardSigmoid};
 
@@ -149,8 +149,6 @@ public:
 
    // Outputs
 
-   void calculate_outputs(const Tensor<type, 4>&, Tensor<type, 4>&);
-
    void forward_propagate(const Tensor<type, 4>&, LayerForwardPropagation*);
    void forward_propagate(const Tensor<type, 2>&, LayerForwardPropagation*);
 
@@ -159,10 +157,9 @@ public:
 
    // Delta methods
 
-   void calculate_hidden_delta(Layer*,
-                               LayerForwardPropagation*,
-                               const Tensor<type, 2>&,
-                               Tensor<type, 2>&) const;
+   void calculate_hidden_delta(LayerForwardPropagation*,
+                               LayerBackPropagation*,
+                               LayerBackPropagation*) const;
 
 
    void calculate_hidden_delta_convolutional(ConvolutionalLayer*,
@@ -193,11 +190,11 @@ public:
 
    void calculate_error_gradient(const Tensor<type, 4>&,
                                  LayerForwardPropagation*,
-                                 LayerBackPropagation&) const;
+                                 LayerBackPropagation*) const;
 
    void calculate_error_gradient(const Tensor<type, 2>&,
                                  LayerForwardPropagation*,
-                                 LayerBackPropagation&) const;
+                                 LayerBackPropagation*) const;
 
    void insert_gradient(LayerBackPropagation*,
                         const Index&,

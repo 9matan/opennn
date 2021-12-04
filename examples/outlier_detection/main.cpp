@@ -17,6 +17,7 @@ int main(void)
     try
     {
         cout << "Outliers test." << endl;
+
 //         NAME               CONTAMINATION           N POINTS
 //         arrhythmia               0.15                452
 //         cover                    0.01                286048
@@ -26,36 +27,53 @@ int main(void)
 //         mnist                    0.092               7603
 //         satellite                0.32                6435
 //         vowels                   0.034               1456
-//         shuttle                  0.07                49097
 //         SkDataSet0-4             0.15                500
 //         Outlier2Dimensions       0.1                 300
-/*
+
         srand(static_cast<unsigned>(time(nullptr)));
         unsigned t0, t1;
-        string name = "ionosphere";
+
+        string name;
+
+        cout <<
+        "\nAvailable datasets:\n\n"
+
+        "arrhythmia\n"
+        "cover\n"
+        "cardio\n"
+        "ionosphere\n"
+        "lympho\n"
+        "mnist\n"
+        "satellite\n"
+        "vowels\n"
+        "SkDataSet0\n"
+        "SkDataSet1\n"
+        "SkDataSet2\n"
+        "SkDataSet3\n"
+        "SkDataSet4\n"
+        "Outlier2Dimensions\n"
+             << endl;
+
+        cin >> name;
+
         // Data set
+
         DataSet data_set("../data/"+name+".csv", ',', true);
         Index K = 20;
-        //K = (data_set.get_used_samples_number()*3.5)/100;
-        //K = K < 20 ? 20 : K;
-        //K = K > 500 ? 500 : K;
         type contamination = type(0);
 
 
         Tensor<type, 2> true_outlier = data_set.get_column_data("outlier");
-        data_set.set_column_use("outlier", data_set.UnusedVariable);
+        data_set.set_column_use("outlier", DataSet::VariableUse::UnusedVariable);
 
         const Index input_variables_number = data_set.get_input_variables_number();
 
         t0 = clock();
+
         Tensor<Index, 1> outliers = data_set.calculate_local_outlier_factor_outliers(K, data_set.get_used_samples_number(), contamination);
 
-        //Tensor<Index, 1> outliers = data_set.calculate_isolation_forest_outliers(100,256, contamination);
-
         t1 = clock();
-
         double time = (double(t1-t0)/CLOCKS_PER_SEC);
-        cout<<"Execution time:" << time << endl;
 
         type truePositives = type(0);
         type falseNegatives = type(0);
@@ -82,7 +100,6 @@ int main(void)
             }
         }
 
-
         for(Index i = 0; i < outliers.size(); i++)
         {
             if(true_outlier(i) == 1 && outliers(i) == 1) truePositives++;
@@ -91,13 +108,14 @@ int main(void)
             else falsePositives++;
         }
 
-        cout << "RESULTS FOR: " << name<<" data_set" << endl;
+        cout << "\nRESULTS FOR: " << name<<" data_set\n" << endl;
+        cout<<"Execution time:" << time << endl;
         cout << "Precision:" << truePositives/(truePositives+falseNegatives) << endl;
         cout << "Recall:" << truePositives/(truePositives+falsePositives) << endl;
         cout << "Detected Number of Outlier:" << count << endl;
         cout << "True Number of true outlier:" << count2 << endl;
         cout << "Total Number of Points:" <<data_set.get_used_samples_number() << endl;
-*/
+
         return 0;
     }
     catch(exception& e)

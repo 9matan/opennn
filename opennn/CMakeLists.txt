@@ -31,10 +31,8 @@ opennn_strings.cpp
 optimization_algorithm.cpp
 perceptron_layer.cpp
 pooling_layer.cpp
-#principal_components_layer.cpp
 probabilistic_layer.cpp
 pruning_inputs.cpp
-#pybind.cpp
 quasi_newton_method.cpp
 recurrent_layer.cpp
 response_optimization.cpp

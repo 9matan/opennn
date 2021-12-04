@@ -39,9 +39,9 @@ namespace OpenNN
     struct NeuralNetworkForwardPropagation;
     struct NeuralNetworkBackPropagation;
 
-/// This class represents the concept of neural network in the OpenNN library
+/// This class represents the concept of neural network in the OpenNN library.
 ///
-/// This neural network is used to span a function space for the problem at hand.
+/// This neural network spans a function space for the problem at hand.
 
 class NeuralNetwork
 {
@@ -159,7 +159,6 @@ public:
 
    Tensor<Index, 1> get_trainable_layers_neurons_numbers() const;
    Tensor<Index, 1> get_trainable_layers_inputs_numbers() const;
-   Tensor<Index, 1> get_trainable_layers_synaptic_weight_numbers() const;
 
    Tensor<Index, 1> get_architecture() const;
 

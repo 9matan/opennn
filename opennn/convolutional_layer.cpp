@@ -191,24 +191,6 @@ void ConvolutionalLayer::calculate_activations_derivatives(const Tensor<type, 4>
 }
 
 
-/// Returns the output of the convolutional layer applied to a batch of images.
-/// @param inputs The batch of images.
-/// @param outputs Tensor where the outputs will be stored.
-
-void ConvolutionalLayer::calculate_outputs(const Tensor<type, 4>& inputs, Tensor<type, 4>& outputs)
-{
-    const Tensor<Index, 1> outputs_dimensions = get_outputs_dimensions();
-
-    outputs.resize(outputs_dimensions(0), outputs_dimensions(1), outputs_dimensions(2), outputs_dimensions(3));
-
-    Tensor<type, 4> combinations(outputs_dimensions(0), outputs_dimensions(1), outputs_dimensions(2), outputs_dimensions(3));
-
-    calculate_convolutions(inputs, combinations);
-
-    calculate_activations(combinations, outputs);
-}
-
-
 void ConvolutionalLayer::forward_propagate(const Tensor<type, 4> &inputs, LayerForwardPropagation* forward_propagation)
 {
     ConvolutionalLayerForwardPropagation* convolutional_layer_forward_propagation
@@ -352,11 +334,11 @@ void ConvolutionalLayer::forward_propagate(const Tensor<type, 2>& inputs,
 }
 
 
-void ConvolutionalLayer::calculate_hidden_delta(Layer* next_layer_pointer,
-                                                LayerForwardPropagation* forward_propagation,
-                                                const Tensor<type, 2>& next_layer_delta,
-                                                Tensor<type, 2>& hidden_delta) const
+void ConvolutionalLayer::calculate_hidden_delta(LayerForwardPropagation*,
+                                                LayerBackPropagation*,
+                                                LayerBackPropagation*) const
 {
+/*
     ConvolutionalLayerForwardPropagation* convolutional_layer_forward_propagation = static_cast<ConvolutionalLayerForwardPropagation*>(forward_propagation);
 
     const Type next_layer_type = next_layer_pointer->get_type();
@@ -402,6 +384,7 @@ void ConvolutionalLayer::calculate_hidden_delta(Layer* next_layer_pointer,
                                              next_layer_delta,
                                              hidden_delta);
     }
+*/
 }
 
 
@@ -450,7 +433,7 @@ void ConvolutionalLayer::calculate_hidden_delta_convolutional(ConvolutionalLayer
         const Index row_index = (tensor_index / output_columns_number) % output_rows_number;
         const Index column_index = tensor_index % output_columns_number;
 
-        type sum = type(0);
+        long double sum = 0.0;
 
         const Index lower_row_index = (row_index - next_layers_kernel_rows) / next_layers_row_stride + 1;
         const Index upper_row_index = min(row_index/next_layers_row_stride + 1, next_layers_output_rows);
@@ -529,7 +512,7 @@ void ConvolutionalLayer::calculate_hidden_delta_pooling(PoolingLayer* next_layer
                     const Index row_index = (tensor_index/output_columns_number)%output_rows_number;
                     const Index column_index = tensor_index%output_columns_number;
 
-                    type sum = type(0);
+                    long double sum = 0.0;
 
                     const Index lower_row_index = (row_index - next_layers_pool_rows)/next_layers_row_stride + 1;
                     const Index upper_row_index = min(row_index/next_layers_row_stride + 1, next_layers_output_rows);
@@ -586,7 +569,7 @@ void ConvolutionalLayer::calculate_hidden_delta_pooling(PoolingLayer* next_layer
                     const Index row_index = (tensor_index/output_columns_number)%output_rows_number;
                     const Index column_index = tensor_index%output_columns_number;
 
-                    type sum = type(0);
+                    long double sum = 0.0;
 
                     const Index lower_row_index = (row_index - next_layers_pool_rows)/next_layers_row_stride + 1;
                     const Index upper_row_index = min(row_index/next_layers_row_stride + 1, next_layers_output_rows);
@@ -690,7 +673,7 @@ void ConvolutionalLayer::calculate_hidden_delta_perceptron(const PerceptronLayer
 //            const Index row_index = (tensor_index/output_columns_number)%output_rows_number;
 //            const Index column_index = tensor_index%output_columns_number;
 
-            type sum = type(0);
+            long double sum = 0.0;
 
 //            for(Index sum_index = 0; sum_index < next_layers_output_columns; sum_index++)
 //            {
@@ -746,7 +729,7 @@ void ConvolutionalLayer::calculate_hidden_delta_probabilistic(ProbabilisticLayer
         const Index row_index = (tensor_index / output_columns_number) % output_rows_number;
         const Index column_index = tensor_index % output_columns_number;
 
-        type sum = type(0);
+        long double sum = 0.0;
 
         for(Index sum_index = 0; sum_index < next_layers_output_columns; sum_index++)
         {
@@ -775,7 +758,7 @@ void ConvolutionalLayer::calculate_hidden_delta_probabilistic(ProbabilisticLayer
 
 void ConvolutionalLayer::calculate_error_gradient(const Tensor<type, 4>& inputs,
                                                   LayerForwardPropagation* forward_propagation,
-                                                  LayerBackPropagation& back_propagation) const
+                                                  LayerBackPropagation* back_propagation) const
 {
     Tensor<type, 4> layers_inputs;
 
@@ -837,7 +820,7 @@ void ConvolutionalLayer::calculate_error_gradient(const Tensor<type, 4>& inputs,
 
 void ConvolutionalLayer::calculate_error_gradient(const Tensor<type, 2>& inputs,
                                                   LayerForwardPropagation* forward_propagation,
-    LayerBackPropagation& back_propagation) const
+                                                  LayerBackPropagation* back_propagation) const
 {
     const Eigen::array<Eigen::Index, 4> four_dims = {input_variables_dimensions(3), // columns number
                                                      input_variables_dimensions(2), // rows number
@@ -1342,7 +1325,7 @@ const Tensor<type, 4>& ConvolutionalLayer::get_synaptic_weights() const
 }
 
 
-/// Returns the number of layer's synaptic weights
+/// Returns the number of synaptic weights in the layer.
 
 Index ConvolutionalLayer::get_synaptic_weights_number() const
 {

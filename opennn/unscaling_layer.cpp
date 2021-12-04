@@ -172,7 +172,7 @@ Tensor<string, 1> UnscalingLayer::write_unscaling_methods() const
 {
     const Index neurons_number = get_neurons_number();
 
-    Tensor<string, 1> scaling_methods_strings(neurons_number);
+    Tensor<string, 1> scaling_methods_strings(neurons_number);                    
 
     for(Index i = 0; i < neurons_number; i++)
     {
@@ -259,8 +259,8 @@ Tensor<string, 1> UnscalingLayer::write_unscaling_method_text() const
 }
 
 
-/// Returns true if messages from this class are to be displayed on the screen, or false if messages
-/// from this class are not to be displayed on the screen.
+/// Returns true if messages from this class are displayed on the screen, or false if messages
+/// from this class are not displayed on the screen.
 
 const bool& UnscalingLayer::get_display() const
 {
@@ -308,7 +308,7 @@ void UnscalingLayer::set(const Index& new_neurons_number)
 
 
 /// Sets the size of the unscaling layer and the descriptives values.
-/// @param new_descriptives Vector of vectors containing the minimums, maximums, means and standard deviations for the unscaling layer.
+/// @param new_descriptives Vector of vectors containing the minimums, maximums, means, and standard deviations for the unscaling layer.
 /// The size of this vector must be 4.
 /// The size of each subvector will be the size of the unscaling layer.
 
@@ -332,7 +332,7 @@ void UnscalingLayer::set(const Tensor<Descriptives, 1>& new_descriptives, const 
 }
 
 
-/// Sets the unscaling layer members from a XML document.
+/// Sets the unscaling layer members from an XML document.
 /// @param new_unscaling_layer_document Pointer to a TinyXML document containing the member data.
 
 void UnscalingLayer::set(const tinyxml2::XMLDocument& new_unscaling_layer_document)
@@ -610,8 +610,8 @@ void UnscalingLayer::set_scalers(const Scaler& new_unscaling_method)
 
 
 /// Sets a new display value.
-/// If it is set to true messages from this class are to be displayed on the screen;
-/// if it is set to false messages from this class are not to be displayed on the screen.
+/// If it is set to true messages from this class are displayed on the screen;
+/// if it is set to false messages from this class are not displayed on the screen.
 /// @param new_display Display value.
 
 void UnscalingLayer::set_display(const bool& new_display)
@@ -783,7 +783,7 @@ Tensor<type, 2> UnscalingLayer::calculate_outputs(const Tensor<type, 2>& inputs)
 }
 
 
-/// Serializes the unscaling layer object into a XML document of the TinyXML library without keep the DOM tree in memory.
+/// Serializes the unscaling layer object into an XML document of the TinyXML library without keeping the DOM tree in memory.
 /// See the OpenNN manual for more information about the format of this document.
 
 void UnscalingLayer::write_XML(tinyxml2::XMLPrinter& file_stream) const

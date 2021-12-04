@@ -36,14 +36,12 @@ int main(int argc, char* argv[])
 
       "bounding_layer | bl\n"
       "conjugate_gradient | cg\n"
-      "convolutional_layer | cl\n"
       "correlations | cr\n"
       "cross_entropy_error | cee\n"
+      "convulational_layer | cl\n"
       "descriptives | dsc\n"
       "data_set | ds\n"
-      "evolutionary_algorithm\n"
       "genetic_algorithm | ga\n"
-      "golden_section_order\n"
       "gradient_descent | gd\n"
       "growing_inputs | gi\n"
       "growing_neurons | gn\n"
@@ -59,13 +57,13 @@ int main(int argc, char* argv[])
       "normalized_squared_error | nse\n"
       "numerical_differentiation | nd\n"
       "perceptron_layer | pl\n"
-      "pooling_layer | pll\n"
+      "pooling_layer | pl"
+      "l\n"
       "probabilistic_layer | pbl\n"
       "pruning_inputs | pi\n"
       "quasi_newton_method | qnm\n"
       "recurrent_layer | rl\n"
       "scaling_layer | sl\n"
-      "simulated_annealing_order\n"
       "scaling | sc\n"
       "statistics | st\n"
       "stochastic_gradient_descent | sgd\n"
@@ -200,7 +198,7 @@ int main(int argc, char* argv[])
          tests_passed_count += probabilistic_layer_test.get_tests_passed_count();
          tests_failed_count += probabilistic_layer_test.get_tests_failed_count();
       }
-/*
+
       else if(test == "convolutional_layer" || test == "cl")
       {
          ConvolutionalLayerTest layer_test;
@@ -217,7 +215,7 @@ int main(int argc, char* argv[])
          tests_passed_count += layer_test.get_tests_passed_count();
          tests_failed_count += layer_test.get_tests_failed_count();
       }
-*/
+
       else if(test == "neural_network" || test == "nn")
       {
         NeuralNetworkTest neural_network_test;
@@ -434,6 +432,14 @@ int main(int argc, char* argv[])
           tests_passed_count += test_numerical_differentiation.get_tests_passed_count();
           tests_failed_count += test_numerical_differentiation.get_tests_failed_count();
 
+          // tensor utilities
+
+          TensorUtilitiesTest tensor_utilites_test;
+          tensor_utilites_test.run_test_case();
+          tests_count += tensor_utilites_test.get_tests_count();
+          tests_passed_count += tensor_utilites_test.get_tests_passed_count();
+          tests_failed_count += tensor_utilites_test.get_tests_failed_count();
+
           // D A T A   S E T   T E S T S
 
           // correlation analysis
@@ -444,6 +450,7 @@ int main(int argc, char* argv[])
           tests_passed_count += correlations_test.get_tests_passed_count();
           tests_failed_count += correlations_test.get_tests_failed_count();
 
+
           // statistics
 
           StatisticsTest statistics_test;
@@ -452,6 +459,14 @@ int main(int argc, char* argv[])
           tests_passed_count += statistics_test.get_tests_passed_count();
           tests_failed_count += statistics_test.get_tests_failed_count();
 
+          // scaling
+
+          ScalingTest scaling_test;
+          scaling_test.run_test_case();
+          tests_count += scaling_test.get_tests_count();
+          tests_passed_count += scaling_test.get_tests_passed_count();
+          tests_failed_count += scaling_test.get_tests_failed_count();
+
           // data set
 
           DataSetTest data_set_test;
@@ -459,6 +474,7 @@ int main(int argc, char* argv[])
           tests_count += data_set_test.get_tests_count();
           tests_passed_count += data_set_test.get_tests_passed_count();
           tests_failed_count += data_set_test.get_tests_failed_count();
+
 
           // N E U R A L   N E T W O R K   T E S T S
 
@@ -502,6 +518,38 @@ int main(int argc, char* argv[])
           tests_passed_count += probabilistic_layer_test.get_tests_passed_count();
           tests_failed_count += probabilistic_layer_test.get_tests_failed_count();
 
+          // lstm layer
+
+          LongShortTermMemoryLayerTest lstm_layer_test;
+          lstm_layer_test.run_test_case();
+          tests_count += lstm_layer_test.get_tests_count();
+          tests_passed_count += lstm_layer_test.get_tests_passed_count();
+          tests_failed_count += lstm_layer_test.get_tests_failed_count();
+
+          // recurrent layer
+
+          RecurrentLayerTest recurrent_layer_test;
+          recurrent_layer_test.run_test_case();
+          tests_count += recurrent_layer_test.get_tests_count();
+          tests_passed_count += recurrent_layer_test.get_tests_passed_count();
+          tests_failed_count += recurrent_layer_test.get_tests_failed_count();
+
+          // convolutional layer
+
+          ConvolutionalLayerTest convolutional_layer_test;
+          convolutional_layer_test.run_test_case();
+          tests_count += convolutional_layer_test.get_tests_count();
+          tests_passed_count += convolutional_layer_test.get_tests_passed_count();
+          tests_failed_count += convolutional_layer_test.get_tests_failed_count();
+
+          // recurrent layer
+
+          PoolingLayerTest pooling_layer_test;
+          pooling_layer_test.run_test_case();
+          tests_count += pooling_layer_test.get_tests_count();
+          tests_passed_count += pooling_layer_test.get_tests_passed_count();
+          tests_failed_count += pooling_layer_test.get_tests_failed_count();
+
           // neural network
 
           NeuralNetworkTest neural_network_test;
@@ -536,6 +584,14 @@ int main(int argc, char* argv[])
           tests_passed_count += normalized_squared_error_test.get_tests_passed_count();
           tests_failed_count += normalized_squared_error_test.get_tests_failed_count();
 
+          // weighted squared error
+
+          WeightedSquaredErrorTest weighted_squared_error_test;
+          weighted_squared_error_test.run_test_case();
+          tests_count += weighted_squared_error_test.get_tests_count();
+          tests_passed_count += weighted_squared_error_test.get_tests_passed_count();
+          tests_failed_count += weighted_squared_error_test.get_tests_failed_count();
+
           // minkowski error
 
           MinkowskiErrorTest Minkowski_error_test;
@@ -544,14 +600,14 @@ int main(int argc, char* argv[])
           tests_passed_count += Minkowski_error_test.get_tests_passed_count();
           tests_failed_count += Minkowski_error_test.get_tests_failed_count();
 
-          // cross entropy error
-/*
+          // cross-entropy error
+
           CrossEntropyErrorTest cross_entropy_error_test;
           cross_entropy_error_test.run_test_case();
           tests_count += cross_entropy_error_test.get_tests_count();
           tests_passed_count += cross_entropy_error_test.get_tests_passed_count();
           tests_failed_count += cross_entropy_error_test.get_tests_failed_count();
-*/
+
           // T R A I N I N G   S T R A T E G Y   T E S T S
 
           // learning rate algorithm
@@ -594,7 +650,7 @@ int main(int argc, char* argv[])
           tests_passed_count += Levenberg_Marquardt_algorithm_test.get_tests_passed_count();
           tests_failed_count += Levenberg_Marquardt_algorithm_test.get_tests_failed_count();
 
-          // Stochastic gradient descent
+          // stochastic gradient descent
 
           StochasticGradientDescentTest stochastic_gradient_descent_test;
           stochastic_gradient_descent_test.run_test_case();
@@ -628,14 +684,6 @@ int main(int argc, char* argv[])
           tests_passed_count += neurons_selection_algorithm_test.get_tests_passed_count();
           tests_failed_count += neurons_selection_algorithm_test.get_tests_failed_count();
 
-/*          // incremental order
-
-          GrowingNeuronsTest incremental_order_test;
-          incremental_order_test.run_test_case();
-          tests_count += incremental_order_test.get_tests_count();
-          tests_passed_count += incremental_order_test.get_tests_passed_count();
-          tests_failed_count += incremental_order_test.get_tests_failed_count();
-*/
           // growing neurons
 
           GrowingNeuronsTest growing_neurons_test;
@@ -643,7 +691,6 @@ int main(int argc, char* argv[])
           tests_count += growing_neurons_test.get_tests_count();
           tests_passed_count += growing_neurons_test.get_tests_passed_count();
           tests_failed_count += growing_neurons_test.get_tests_failed_count();
-
 
           // input selection algorithm
 

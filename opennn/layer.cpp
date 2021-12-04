@@ -20,7 +20,7 @@ Layer::~Layer()
 
 /// Default constructor.
 /// It creates a layer object with zero parameters.
-/// It also initializes the rest of class members to their default values.
+/// It also initializes the rest of the class members to their default values.
 
 Layer::Type Layer::get_type () const
 {
@@ -168,20 +168,6 @@ Index Layer::get_neurons_number() const
 
     buffer << "OpenNN Exception: Layer class.\n"
            << "get_neurons_number() const method.\n"
-           << "This method is not implemented in the layer type (" << get_type_string() << ").\n";
-
-    throw logic_error(buffer.str());
-}
-
-
-/// Returns the number of layer's synaptic weights
-
-Index Layer::get_synaptic_weights_number() const
-{
-    ostringstream buffer;
-
-    buffer << "OpenNN Exception: Layer class.\n"
-           << "get_synaptic_weight_number() const method.\n"
            << "This method is not implemented in the layer type (" << get_type_string() << ").\n";
 
     throw logic_error(buffer.str());
@@ -806,13 +792,28 @@ void Layer::softmax(const Tensor<type, 2>& x, Tensor<type, 2>& y) const
 
     const Index rows_number = y.dimension(0);
 
-    Tensor<type, 1> sums(rows_number);
+    // Activations
 
     y.device(*thread_pool_device) = x.exp();
 
-    sums.device(*thread_pool_device) = y.sum(Eigen::array<Index, 1>({1}));
+    Tensor<type, 1> sums(rows_number);
+    sums.setZero();
 
-    y.device(*thread_pool_device) = y / sums.broadcast(Eigen::array<Index,2>({1,columns_number}));
+    for (Index i = 0; i < rows_number; i++)
+    {
+        for (Index j = 0; j < columns_number; j++)
+        {
+            sums[i] += y(i, j);
+        }
+    }
+
+    for (Index i = 0; i < rows_number; i++)
+    {
+        for (Index j = 0; j < columns_number; j++)
+        {
+            y(i, j) = y(i, j) / sums(i);
+        }
+    }
 }
 
 

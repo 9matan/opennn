@@ -34,20 +34,16 @@ int main()
         TrainingStrategy training_strategy(&neural_network, &data_set);
 
         training_strategy.set_loss_method(TrainingStrategy::LossMethod::SUM_SQUARED_ERROR);
-
         training_strategy.set_optimization_method(TrainingStrategy::OptimizationMethod::LEVENBERG_MARQUARDT_ALGORITHM);
-
         training_strategy.perform_training();
 
         TestingAnalysis testing_analysis(&neural_network, &data_set);
 
         testing_analysis.print_binary_classification_tests();
 
-        neural_network.save_expression_python("../data/breast_cancer.py");
+        neural_network.save_expression_python("data/breast_cancer.py");
 
         cout << "End breast cancer application" << endl;
-
-        system("pause");
 
         return 0;
     }

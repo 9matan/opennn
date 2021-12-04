@@ -12,8 +12,8 @@ namespace OpenNN
 {
 
 /// Default constructor.
-/// It creates Minkowski error term not associated to any neural network and not measured on any data set.
-/// It also initializes all the rest of class members to their default values.
+/// It creates Minkowski error term not associated with any neural network and not measured on any data set.
+/// It also initializes all the rest of the class members to their default values.
 
 MinkowskiError::MinkowskiError() : LossIndex()
 {
@@ -22,8 +22,8 @@ MinkowskiError::MinkowskiError() : LossIndex()
 
 
 /// Neural network and data set constructor.
-/// It creates a Minkowski error term object associated to a neural network and measured on a data set.
-/// It also initializes all the rest of class members to their default values.
+/// It creates a Minkowski error term object associated with a neural network and measured on a data set.
+/// It also initializes all the rest of the class members to their default values.
 /// @param new_neural_network_pointer Pointer to a neural network object.
 /// @param new_data_set_pointer Pointer to a data set object.
 
@@ -64,7 +64,7 @@ void MinkowskiError::set_default()
 }
 
 
-/// Sets a new Minkowski exponent value to be used in order to calculate the error.
+/// Sets a new Minkowski exponent value to be used to calculate the error.
 /// The Minkowski R-value must be comprised between 1 and 2.
 /// @param new_Minkowski_parameter Minkowski exponent value.
 
@@ -227,7 +227,7 @@ string MinkowskiError::get_error_type_text() const
 }
 
 
-/// Serializes the cross entropy error object into a XML document of the TinyXML library without keep the DOM tree in memory.
+/// Serializes the cross-entropy error object into an XML document of the TinyXML library without keeping the DOM tree in memory.
 /// See the OpenNN manual for more information about the format of this document
 
 void MinkowskiError::write_XML(tinyxml2::XMLPrinter& file_stream) const
@@ -255,7 +255,7 @@ void MinkowskiError::write_XML(tinyxml2::XMLPrinter& file_stream) const
 }
 
 
-/// Loads a Minkowski error object from a XML document.
+/// Loads a Minkowski error object from an XML document.
 /// @param document TinyXML document containing the members of the object.
 
 void MinkowskiError::from_XML(const tinyxml2::XMLDocument& document)

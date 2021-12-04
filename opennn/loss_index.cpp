@@ -13,7 +13,7 @@ namespace OpenNN
 
 /// Default constructor.
 /// It creates a default error term object, with all pointers initialized to nullptr.
-/// It also initializes all the rest of class members to their default values.
+/// It also initializes all the rest of the class members to their default values.
 
 LossIndex::LossIndex()
     : neural_network_pointer(nullptr),
@@ -24,9 +24,9 @@ LossIndex::LossIndex()
 
 
 /// Neural network and data set constructor.
-/// It creates a error term object associated to a neural network and to be measured on a data set.
-/// The rest of pointers are initialized to nullptr.
-/// It also initializes all the rest of class members to their default values.
+/// It creates a error term object associated with a neural network and to be measured on a data set.
+/// It initializes the rest of pointers to nullptr.
+/// It also initializes all the rest of the class members to their default values.
 /// @param new_neural_network_pointer Pointer to a neural network object.
 /// @param new_data_set_pointer Pointer to a data set object.
 
@@ -105,7 +105,7 @@ LossIndex::RegularizationMethod LossIndex::get_regularization_method() const
 
 
 /// Sets all the member pointers to nullptr(neural network, data set).
-/// It also initializes all the rest of class members to their default values.
+/// It also initializes all the rest of the class members to their default values.
 
 void LossIndex::set()
 {
@@ -117,7 +117,7 @@ void LossIndex::set()
 
 
 /// Sets all the member pointers to nullptr, but the neural network, which set to a given pointer.
-/// It also initializes all the rest of class members to their default values.
+/// It also initializes all the rest of the class members to their default values.
 /// @param new_neural_network_pointer Pointer to a neural network object.
 
 void LossIndex::set(NeuralNetwork* new_neural_network_pointer)
@@ -130,7 +130,7 @@ void LossIndex::set(NeuralNetwork* new_neural_network_pointer)
 
 
 /// Sets all the member pointers to nullptr, but the data set, which set to a given pointer.
-/// It also initializes all the rest of class members to their default values.
+/// It also initializes all the rest of the class members to their default values.
 /// @param new_data_set_pointer Pointer to a data set object.
 
 void LossIndex::set(DataSet* new_data_set_pointer)
@@ -143,7 +143,7 @@ void LossIndex::set(DataSet* new_data_set_pointer)
 
 
 /// Sets new neural network and data set pointers.
-/// Finally, it initializes all the rest of class members to their default values.
+/// Finally, it initializes all the rest of the class members to their default values.
 /// @param new_neural_network_pointer Pointer to a neural network object.
 /// @param new_data_set_pointer Pointer to a data set object.
 
@@ -182,8 +182,8 @@ void LossIndex::set_threads_number(const int& new_threads_number)
 }
 
 
-/// Sets a pointer to a neural network object which is to be associated to the error term.
-/// @param new_neural_network_pointer Pointer to a neural network object to be associated to the error term.
+/// Sets a pointer to a neural network object which is to be associated with the error term.
+/// @param new_neural_network_pointer Pointer to a neural network object to be associated with the error term.
 
 void LossIndex::set_neural_network_pointer(NeuralNetwork* new_neural_network_pointer)
 {
@@ -264,8 +264,8 @@ void LossIndex::set_regularization_weight(const type& new_regularization_weight)
 
 
 /// Sets a new display value.
-/// If it is set to true messages from this class are to be displayed on the screen;
-/// if it is set to false messages from this class are not to be displayed on the screen.
+/// If it is set to true messages from this class are displayed on the screen;
+/// if it is set to false messages from this class are not displayed on the screen.
 /// @param new_display Display value.
 
 void LossIndex::set_display(const bool& new_display)
@@ -289,7 +289,7 @@ bool LossIndex::has_selection() const
 }
 
 
-/// Checks that there is a neural network associated to the error term.
+/// Checks whether there is a neural network associated with the error term.
 /// If some of the above conditions is not hold, the method throws an exception.
 
 void LossIndex::check() const
@@ -449,9 +449,9 @@ void LossIndex::back_propagate(const DataSetBatch& batch,
 }
 
 
-/// This method calculates the second order loss.
+/// This method calculates the second-order loss.
 /// It is used for optimization of parameters during training.
-/// Returns a second order terms loss structure, which contains the values and the Hessian of the error terms function.
+/// Returns a second-order terms loss structure, which contains the values and the Hessian of the error terms function.
 /// @todo Update method.
 
 void LossIndex::back_propagate_lm(const DataSetBatch& batch,
@@ -875,7 +875,7 @@ void LossIndex::calculate_error_gradient(const DataSetBatch& batch,
 
 
 
-/// Serializes a default error term object into a XML document of the TinyXML library without keep the DOM tree in memory.
+/// Serializes a default error term object into an XML document of the TinyXML library without keeping the DOM tree in memory.
 /// See the OpenNN manual for more information about the format of this document.
 
 void LossIndex::write_XML(tinyxml2::XMLPrinter& file_stream) const
@@ -973,7 +973,7 @@ void LossIndex::write_regularization_XML(tinyxml2::XMLPrinter& file_stream) cons
 }
 
 
-/// Loads a default error term from a XML document.
+/// Loads a default error term from an XML document.
 /// @param document TinyXML document containing the error term members.
 
 void LossIndex::from_XML(const tinyxml2::XMLDocument& document)

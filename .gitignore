@@ -249,6 +249,8 @@ Makefile*
 **/[Rr]elease/*
 
 #temp
+*.orig
+*.log
 *.tmp.*
 **/[Tt]mp/*
 **/[Tt]emp/*

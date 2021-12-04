@@ -47,16 +47,16 @@ class NeuralNetwork:
 
 		combinations = [None] * 10
 
-		combinations[0] = -0.0661798 -0.368676*inputs[0] +0.41878*inputs[1] 
-		combinations[1] = 0.0678794 +0.367733*inputs[0] -0.418693*inputs[1] 
-		combinations[2] = 0.0642856 +0.368797*inputs[0] -0.419111*inputs[1] 
-		combinations[3] = -0.0662812 -0.369284*inputs[0] +0.418883*inputs[1] 
-		combinations[4] = -0.0661668 -0.368775*inputs[0] +0.418877*inputs[1] 
-		combinations[5] = -0.0663031 -0.368421*inputs[0] +0.418618*inputs[1] 
-		combinations[6] = -0.0666718 -0.368349*inputs[0] +0.418688*inputs[1] 
-		combinations[7] = -0.0660547 -0.369025*inputs[0] +0.419163*inputs[1] 
-		combinations[8] = 0.0664549 +0.36839*inputs[0] -0.418703*inputs[1] 
-		combinations[9] = -0.0669743 -0.368882*inputs[0] +0.419612*inputs[1] 
+		combinations[0] = 0.296804 -0.954437*inputs[0] +0.885734*inputs[1] 
+		combinations[1] = 0.3031 -0.971211*inputs[0] +0.901309*inputs[1] 
+		combinations[2] = -0.277971 +0.904248*inputs[0] -0.839228*inputs[1] 
+		combinations[3] = 0.318156 -1.01146*inputs[0] +0.938595*inputs[1] 
+		combinations[4] = 0.289379 -0.934634*inputs[0] +0.867385*inputs[1] 
+		combinations[5] = 0.313975 -1.00031*inputs[0] +0.92816*inputs[1] 
+		combinations[6] = 0.315903 -1.00549*inputs[0] +0.932938*inputs[1] 
+		combinations[7] = 0.268993 -0.88033*inputs[0] +0.817097*inputs[1] 
+		combinations[8] = -0.311001 +0.992423*inputs[0] -0.920825*inputs[1] 
+		combinations[9] = 0.28485 -0.922566*inputs[0] +0.856198*inputs[1] 
 		
 		activations = [None] * 10
 
@@ -78,7 +78,7 @@ class NeuralNetwork:
 
 		combinations = [None] * 1
 
-		combinations[0] = -0.196039 +0.744644*inputs[0] -0.743827*inputs[1] -0.744454*inputs[2] +0.746474*inputs[3] +0.744849*inputs[4] +0.743737*inputs[5] +0.743872*inputs[6] +0.74475*inputs[7] -0.744021*inputs[8] +0.745248*inputs[9] 
+		combinations[0] = 0.11943 +1.35157*inputs[0] +1.37691*inputs[1] -1.27634*inputs[2] +1.43747*inputs[3] +1.32187*inputs[4] +1.42081*inputs[5] +1.42853*inputs[6] +1.24052*inputs[7] -1.40855*inputs[8] +1.30378*inputs[9] 
 		
 		activations = [None] * 1
 

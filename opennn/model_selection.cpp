@@ -137,8 +137,8 @@ void ModelSelection::set_default()
 
 
 /// Sets a new display value.
-/// If it is set to true messages from this class are to be displayed on the screen;
-/// if it is set to false messages from this class are not to be displayed on the screen.
+/// If it is set to true messages from this class are displayed on the screen;
+/// if it is set to false messages from this class are not displayed on the screen.
 /// @param new_display Display value.
 
 void ModelSelection::set_display(const bool& new_display)
@@ -365,7 +365,7 @@ InputsSelectionResults ModelSelection::perform_inputs_selection()
 }
 
 
-/// Serializes the model selection object into a XML document of the TinyXML library without keep the DOM tree in memory.
+/// Serializes the model selection object into an XML document of the TinyXML library without keeping the DOM tree in memory.
 /// See the OpenNN manual for more information about the format of this document.
 
 void ModelSelection::write_XML(tinyxml2::XMLPrinter& file_stream) const
@@ -406,7 +406,7 @@ void ModelSelection::write_XML(tinyxml2::XMLPrinter& file_stream) const
 }
 
 
-/// Loads the members of this model selection object from a XML document.
+/// Loads the members of this model selection object from an XML document.
 /// @param document XML document of the TinyXML library.
 
 void ModelSelection::from_XML(const tinyxml2::XMLDocument& document)
@@ -574,7 +574,7 @@ void ModelSelection::print() const
 }
 
 
-/// Saves the model selection members to a XML file.
+/// Saves the model selection members to an XML file.
 /// @param file_name Name of model selection XML file.
 
 void ModelSelection::save(const string& file_name) const
@@ -589,7 +589,7 @@ void ModelSelection::save(const string& file_name) const
 }
 
 
-/// Loads the model selection members from a XML file.
+/// Loads the model selection members from an XML file.
 /// @param file_name Name of model selection XML file.
 
 void ModelSelection::load(const string& file_name)

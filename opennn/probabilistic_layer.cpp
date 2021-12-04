@@ -155,8 +155,8 @@ string ProbabilisticLayer::write_activation_function_text() const
 }
 
 
-/// Returns true if messages from this class are to be displayed on the screen, or false if messages
-/// from this class are not to be displayed on the screen.
+/// Returns true if messages from this class are displayed on the screen, or false if messages
+/// from this class are not displayed on the screen.
 
 const bool& ProbabilisticLayer::get_display() const
 {
@@ -208,7 +208,7 @@ Tensor<type, 2> ProbabilisticLayer::get_synaptic_weights(Tensor<type, 1>& parame
 }
 
 
-/// Returns the number of parameters(biases and synaptic weights) of the layer.
+/// Returns the number of parameters (biases and synaptic weights) of the layer.
 
 Index ProbabilisticLayer::get_parameters_number() const
 {
@@ -240,7 +240,7 @@ Tensor<type, 1> ProbabilisticLayer::get_parameters() const
 
 
 /// Sets a probabilistic layer with zero probabilistic neurons.
-/// It also sets the rest of members to their default values.
+/// It also sets the rest of the members to their default values.
 
 void ProbabilisticLayer::set()
 {
@@ -253,7 +253,7 @@ void ProbabilisticLayer::set()
 
 
 /// Resizes the size of the probabilistic layer.
-/// It also sets the rest of class members to their default values.
+/// It also sets the rest of the class members to their default values.
 /// @param new_neurons_number New size for the probabilistic layer.
 
 void ProbabilisticLayer::set(const Index& new_inputs_number, const Index& new_neurons_number)
@@ -484,8 +484,8 @@ void ProbabilisticLayer::set_activation_function(const string& new_activation_fu
 
 
 /// Sets a new display value.
-/// If it is set to true messages from this class are to be displayed on the screen;
-/// if it is set to false messages from this class are not to be displayed on the screen.
+/// If it is set to true messages from this class are displayed on the screen;
+/// if it is set to false messages from this class are not displayed on the screen.
 /// @param new_display Display value.
 
 void ProbabilisticLayer::set_display(const bool& new_display)
@@ -672,7 +672,7 @@ void ProbabilisticLayer::calculate_activations_derivatives(const Tensor<type, 2>
 }
 
 
-/// This method processes the input to the probabilistic layer in order to obtain a set of outputs which
+/// This method processes the input to the probabilistic layer to obtain a set of outputs which
 /// can be interpreted as probabilities.
 /// This posprocessing is performed according to the probabilistic method to be used.
 /// @param inputs Set of inputs to the probabilistic layer.
@@ -910,7 +910,7 @@ void ProbabilisticLayer::insert_squared_errors_Jacobian_lm(LayerBackPropagationL
 }
 
 
-/// Serializes the probabilistic layer object into a XML document of the TinyXML library without keep the DOM tree in memory.
+/// Serializes the probabilistic layer object into an XML document of the TinyXML library without keeping the DOM tree in memory.
 /// See the OpenNN manual for more information about the format of this document.
 
 void ProbabilisticLayer::write_XML(tinyxml2::XMLPrinter& file_stream) const

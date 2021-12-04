@@ -22,7 +22,7 @@ ScalingLayer::ScalingLayer() : Layer()
 
 /// Scaling neurons number constructor.
 /// This constructor creates a scaling layer with a given size.
-/// The members of this object are initialized with the default values.
+/// It initializes the members of this object with the default values.
 /// @param new_neurons_number Number of scaling neurons in the layer.
 
 ScalingLayer::ScalingLayer(const Index& new_neurons_number) : Layer()
@@ -38,8 +38,8 @@ ScalingLayer::ScalingLayer(const Tensor<Index, 1>& new_inputs_dimensions) : Laye
 
 
 /// Descriptives constructor.
-/// This constructor creates a scaling layer with given minimums, maximums, means and standard deviations.
-/// The rest of members of this object are initialized with the default values.
+/// This constructor creates a scaling layer with given minimums, maximums, means, and standard deviations.
+/// It also initializes the rest of the members of this object with the default values.
 /// @param new_descriptives Vector of vectors with the variables descriptives.
 
 ScalingLayer::ScalingLayer(const Tensor<Descriptives, 1>& new_descriptives) : Layer()
@@ -276,8 +276,8 @@ Tensor<string, 1> ScalingLayer::write_scalers_text() const
 
 // const bool& get_display() const method
 
-/// Returns true if messages from this class are to be displayed on the screen, or false if messages
-/// from this class are not to be displayed on the screen.
+/// Returns true if messages from this class are displayed on the screen, or false if messages
+/// from this class are not displayed on the screen.
 
 const bool& ScalingLayer::get_display() const
 {
@@ -330,7 +330,7 @@ void ScalingLayer::set(const Tensor<Index, 1>& new_inputs_dimensions)
 
 
 /// Sets the size of the scaling layer and the descriptives values.
-/// @param new_descriptives Vector of vectors containing the minimums, maximums, means and standard deviations for the scaling layer.
+/// @param new_descriptives Vector of vectors containing the minimums, maximums, means, and standard deviations for the scaling layer.
 /// The size of this vector must be 4.
 /// The size of each subvector will be the size of the scaling layer.
 
@@ -354,7 +354,7 @@ void ScalingLayer::set(const Tensor<Descriptives, 1>& new_descriptives, const Te
 }
 
 
-/// Sets the scaling layer members from a XML document.
+/// Sets the scaling layer members from an XML document.
 /// @param new_scaling_layer_document Pointer to a TinyXML document containing the member data.
 
 void ScalingLayer::set(const tinyxml2::XMLDocument& new_scaling_layer_document)
@@ -665,8 +665,8 @@ void ScalingLayer::set_scalers(const Scaler& new_scaling_method)
 
 
 /// Sets a new display value.
-/// If it is set to true messages from this class are to be displayed on the screen;
-/// if it is set to false messages from this class are not to be displayed on the screen.
+/// If it is set to true messages from this class are displayed on the screen;
+/// if it is set to false messages from this class are not displayed on the screen.
 /// @param new_display Display value.
 
 void ScalingLayer::set_display(const bool& new_display)
@@ -1184,7 +1184,7 @@ string ScalingLayer::write_expression_python() const
 }
 
 
-/// Serializes the scaling layer object into a XML document of the TinyXML library without keep the DOM tree in memory.
+/// Serializes the scaling layer object into an XML document of the TinyXML library without keeping the DOM tree in memory.
 /// See the OpenNN manual for more information about the format of this document.
 
 void ScalingLayer::write_XML(tinyxml2::XMLPrinter& file_stream) const

@@ -13,7 +13,7 @@ namespace OpenNN
 
 /// Default constructor.
 /// It creates a empty layer object, with no neurons.
-/// This constructor also initializes the rest of class members to their default values.
+/// This constructor also initializes the rest of the class members to their default values.
 
 RecurrentLayer::RecurrentLayer() : Layer()
 {
@@ -25,8 +25,8 @@ RecurrentLayer::RecurrentLayer() : Layer()
 
 /// Layer architecture constructor.
 /// It creates a layer object with given numbers of inputs and neurons.
-/// The parameters are initialized at random.
-/// This constructor also initializes the rest of class members to their default values.
+/// It also initializes the parameters at random.
+/// This constructor also initializes the rest of the class members to their default values.
 /// @param new_inputs_number Number of inputs in the layer.
 /// @param new_neurons_number Number of neurons in the layer.
 
@@ -240,7 +240,7 @@ Tensor<type, 2> RecurrentLayer::get_recurrent_weights(const Tensor<type, 1>& par
 
 
 /// Returns a string with the name of the layer activation function.
-/// This can be: Logistic, HyperbolicTangent, Threshold, SymmetricThreshold, Linear, RectifiedLinear, ScaledExponentialLinear.
+/// This can be Logistic, HyperbolicTangent, Threshold, SymmetricThreshold, Linear, RectifiedLinear, ScaledExponentialLinear.
 
 string RecurrentLayer::write_activation_function() const
 {
@@ -273,8 +273,8 @@ string RecurrentLayer::write_activation_function() const
 }
 
 
-/// Returns true if messages from this class are to be displayed on the screen,
-/// or false if messages from this class are not to be displayed on the screen.
+/// Returns true if messages from this class are displayed on the screen,
+/// or false if messages from this class are not displayed on the screen.
 
 const bool& RecurrentLayer::get_display() const
 {
@@ -283,7 +283,7 @@ const bool& RecurrentLayer::get_display() const
 
 
 /// Sets an empty layer, wihtout any neuron.
-/// It also sets the rest of members to their default values.
+/// It also sets the rest of the members to their default values.
 
 void RecurrentLayer::set()
 {
@@ -292,7 +292,7 @@ void RecurrentLayer::set()
 
 
 /// Sets new numbers of inputs and neurons in the layer.
-/// It also sets the rest of members to their default values.
+/// It also sets the rest of the members to their default values.
 /// @param new_inputs_number Number of inputs.
 /// @param new_neurons_number Number of neuron.
 
@@ -345,7 +345,7 @@ void RecurrentLayer::set_default()
 
 
 /// Sets a new number of inputs in the layer.
-/// The new synaptic weights are initialized at random.
+/// It also initilializes the new synaptic weights at random.
 /// @param new_inputs_number Number of layer inputs.
 
 void RecurrentLayer::set_inputs_number(const Index& new_inputs_number)
@@ -504,8 +504,8 @@ void RecurrentLayer::set_activation_function(const string& new_activation_functi
 
 
 /// Sets a new display value.
-/// If it is set to true messages from this class are to be displayed on the screen;
-/// if it is set to false messages from this class are not to be displayed on the screen.
+/// If it is set to true messages from this class are displayed on the screen;
+/// if it is set to false messages from this class are not displayed on the screen.
 /// @param new_display Display value.
 
 void RecurrentLayer::set_display(const bool& new_display)

@@ -46,8 +46,7 @@ struct LayerBackPropagationLM;
 
 /// This abstract class represents the concept of layer of neurons in OpenNN.
 
-/// Layer is a group of neurons having connections to the same inputs and sending outputs to the same destinations.
-/// Also is used to store information about the layers of the different architectures of NeuralNetworks.
+/// A layer is a group of neurons having connections to the same inputs and sending outputs to the same destinations.
 
 class Layer
 {
@@ -101,9 +100,9 @@ public:
 
     virtual Tensor<type, 2> calculate_outputs(const Tensor<type, 2>&); // Cannot be const because of Recurrent and LSTM layers
 
-    virtual Tensor<type, 2> calculate_outputs_from4D(const Tensor<type, 4>&) {return Tensor<type, 2>();}
+//    virtual Tensor<type, 2> calculate_outputs_from4D(const Tensor<type, 4>&) {return Tensor<type, 2>();}
 
-    virtual Tensor<type, 4> calculate_outputs_4D(const Tensor<type, 4>&) {return Tensor<type, 4>();}
+    virtual Tensor<type, 4> calculate_outputs(const Tensor<type, 4>&) {return Tensor<type, 4>();}
 
     virtual void forward_propagate(const Tensor<type, 2>&, LayerForwardPropagation*) {} // Cannot be const because of Recurrent and LSTM layers
     virtual void forward_propagate(const Tensor<type, 4>&, LayerForwardPropagation*) {}
@@ -145,7 +144,7 @@ public:
 
     virtual Index get_inputs_number() const;
     virtual Index get_neurons_number() const;
-    virtual Index get_synaptic_weights_number() const;
+
     virtual void set_inputs_number(const Index&);
     virtual void set_neurons_number(const Index&);
 

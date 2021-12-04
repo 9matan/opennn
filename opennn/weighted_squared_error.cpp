@@ -12,9 +12,9 @@ namespace OpenNN
 {
 
 /// Default constructor.
-/// It creates a weighted squared error term not associated to any
+/// It creates a weighted squared error term not associated with any
 /// neural network and not measured on any data set.
-/// It also initializes all the rest of class members to their default values.
+/// It also initializes all the rest of the class members to their default values.
 
 WeightedSquaredError::WeightedSquaredError() : LossIndex()
 {
@@ -23,9 +23,9 @@ WeightedSquaredError::WeightedSquaredError() : LossIndex()
 
 
 /// Neural network and data set constructor.
-/// It creates a weighted squared error term object associated to a
+/// It creates a weighted squared error term object associated with a
 /// neural network and measured on a data set.
-/// It also initializes all the rest of class members to their default values.
+/// It also initializes all the rest of the class members to their default values.
 /// @param new_neural_network_pointer Pointer to a neural network object.
 /// @param new_data_set_pointer Pointer to a data set object.
 
@@ -355,7 +355,7 @@ string WeightedSquaredError::get_error_type_text() const
 }
 
 
-/// Serializes the cross entropy error object into a XML document of the TinyXML library without keep the DOM tree in memory.
+/// Serializes the cross-entropy error object into an XML document of the TinyXML library without keeping the DOM tree in memory.
 /// See the OpenNN manual for more information about the format of this document.
 /// @param file_stream
 
@@ -395,7 +395,7 @@ void WeightedSquaredError::write_XML(tinyxml2::XMLPrinter& file_stream) const
 }
 
 
-/// Loads a weighted squared error object from a XML document.
+/// Loads a weighted squared error object from an XML document.
 /// @param document Pointer to a TinyXML document with the object data.
 
 void WeightedSquaredError::from_XML(const tinyxml2::XMLDocument& document)

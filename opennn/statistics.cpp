@@ -206,7 +206,10 @@ void Descriptives::save(const string &file_name) const
 }
 
 
-Histogram::Histogram() {}
+Histogram::Histogram() {
+    centers.resize(0);
+    frequencies.resize(0);
+}
 
 
 /// Destructor.
@@ -564,7 +567,7 @@ Index minimum(const Tensor<Index, 1>& vector)
 {
     const Index size = vector.size();
 
-    if(size == 0) return NAN;
+    if(size == 0) return Index(NAN);
 
     Index minimum = numeric_limits<Index>::max();
 
@@ -665,7 +668,7 @@ Index maximum(const Tensor<Index, 1>& vector)
 {
     const Index size = vector.size();
 
-    if(size == 0) return NAN;
+    if(size == 0) return Index(NAN);
 
     Index maximum = -numeric_limits<Index>::max();
 
@@ -779,7 +782,7 @@ type mean(const Tensor<type, 1>& vector, const Index& begin, const Index& end)
 
     if(end == begin) return vector[begin];
 
-    type sum = type(0);
+    long double sum = 0.0;
 
     for(Index i = begin; i <= end; i++)
     {
@@ -815,7 +818,7 @@ type mean(const Tensor<type, 1>& vector)
 
 #endif
 
-    type sum = type(0);
+    long double sum = 0.0;
 
     Index count = 0;
 
@@ -857,8 +860,8 @@ type variance(const Tensor<type, 1>& vector)
 
 #endif
 
-    type sum = type(0);
-    type squared_sum = type(0);
+    long double sum = 0.0;
+    long double squared_sum = 0.0;
 
     Index count = 0;
 
@@ -905,8 +908,8 @@ type variance(const Tensor<type, 1>& vector, const Tensor<Index, 1>& indices)
 
 #endif
 
-    type sum = type(0);
-    type squared_sum = type(0);
+    long double sum = 0.0;
+    long double squared_sum = 0.0;
 
     Index count = 0;
 
@@ -927,7 +930,7 @@ type variance(const Tensor<type, 1>& vector, const Tensor<Index, 1>& indices)
 
     if(count <= 1) return type(0);
 
-    const type variance = squared_sum/static_cast<type>(count - 1) -(sum/static_cast<type>(count))*(sum/static_cast<type>(count))*static_cast<type>(count)/static_cast<type>(count-1);
+    const type variance = squared_sum/static_cast<type>(count - 1) - (sum/static_cast<type>(count))*(sum/static_cast<type>(count))*static_cast<type>(count)/static_cast<type>(count-1);
 
     return variance;
 }
@@ -1004,7 +1007,8 @@ Tensor<type, 1> standard_deviation(const Tensor<type, 1>& vector, const Index& p
     Tensor<type, 1> std(size);
 
     type mean_value = type(0);
-    type sum = type(0);
+
+    long double sum = 0.0;
 
     for(Index i = 0; i < size; i++)
     {
@@ -1059,7 +1063,7 @@ type asymmetry(const Tensor<type, 1>& vector)
 
     const type mean_value = mean(vector);
 
-    type sum = type(0);
+    long double sum = 0.0;
 
     Index count = 0;
 
@@ -1110,7 +1114,7 @@ type kurtosis(const Tensor<type, 1>& vector)
 
     const type mean_value = mean(vector);
 
-    type sum = type(0);
+    long double sum = 0.0;
 
     Index count = 0;
 
@@ -1786,7 +1790,7 @@ Tensor<Descriptives, 1> descriptives(const Tensor<type, 2>& matrix)
 
     Tensor<type, 1> column(rows_number);
 
-    #pragma omp parallel for private(column)
+//    #pragma omp parallel for private(column)
 
     for(Index i = 0; i < columns_number; i++)
     {
@@ -1834,11 +1838,11 @@ Tensor<Descriptives, 1> descriptives(const Tensor<type, 2>& matrix,
     {
         row_index = row_indices(i);
 
-        #pragma omp parallel for private(column_index)
+//        #pragma omp parallel for private(column_index)
 
         for(Index j = 0; j < columns_indices_size; j++)
         {
-            column_index = columns_indices(j);
+            const Index column_index = columns_indices(j);
 
             const type value = matrix(row_index,column_index);
 
@@ -1860,7 +1864,7 @@ Tensor<Descriptives, 1> descriptives(const Tensor<type, 2>& matrix,
 
     if(row_indices_size > 1)
     {
-        #pragma omp parallel for
+//        #pragma omp parallel for
 
         for(Index i = 0; i < columns_indices_size; i++)
         {
@@ -1873,11 +1877,13 @@ Tensor<Descriptives, 1> descriptives(const Tensor<type, 2>& matrix,
 
     for(Index i = 0; i < columns_indices_size; i++)
     {
-        descriptives(i).minimum = minimums(i);
-        descriptives(i).maximum = maximums(i);
+        descriptives(i).minimum = type(minimums(i));
+        descriptives(i).maximum = type(maximums(i));
         descriptives(i).mean = type(mean(i));
         descriptives(i).standard_deviation = type(standard_deviation(i));
     }
+
+
    
     return descriptives;
 }
@@ -2034,8 +2040,8 @@ Descriptives descriptives(const Tensor<type, 1>& vector)
     type minimum = numeric_limits<type>::max();
     type maximum = -numeric_limits<type>::max();
 
-    type sum = type(0);
-    type squared_sum = type(0);
+    long double sum = 0.0;
+    long double squared_sum = 0;
     Index count = 0;
 
     for(Index i = 0; i < size; i++)
@@ -3016,7 +3022,7 @@ if(number > size)
 
 /// Returns the indices of the largest elements in the vector.
 /// @param number Number of maximal indices to be computed.
-/// @todo Clean variables names minim, vector_!!!
+/// @todo Clea variables names minim, vector_!!!
 
 Tensor<Index, 1> maximal_indices(const Tensor<type, 1>& vector, const Index& number)
 {

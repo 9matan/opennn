@@ -51,7 +51,7 @@ class PerceptronLayer : public Layer
 
 public:
 
-    /// Enumeration of available activation functions for the perceptron neuron model.
+    /// Enumeration of the available activation functions for the perceptron neuron model.
 
     enum class ActivationFunction{Threshold, SymmetricThreshold, Logistic, HyperbolicTangent, Linear, RectifiedLinear,
                             ExponentialLinear, ScaledExponentialLinear, SoftPlus, SoftSign, HardSigmoid};
@@ -238,7 +238,7 @@ protected:
 
    Tensor<type, 2> biases;
 
-   /// This matrix containing conection strengths from a layer's inputs to its neurons.
+   /// This matrix contains conection strengths from a layer's inputs to its neurons.
 
    Tensor<type, 2> synaptic_weights;
 
